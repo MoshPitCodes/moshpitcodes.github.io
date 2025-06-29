@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Patrick Reich - Resume</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2d3436;
+            --secondary: #636e72;
+            --accent: #0984e3;
+            --background: #ffffff;
+            --light-bg: #f5f5f7;
+            --border: #dfe6e9;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, 'SF Pro Display', BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            background: var(--background);
+            color: var(--primary);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        .header {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            align-items: start;
+            flex-wrap: wrap;
+        }
+
+        .name {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .title {
+            font-size: 1.25rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .contact {
+            font-size: 0.9rem;
+            color: var(--secondary);
+            line-height: 1.8;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            align-items: start;
+        }
+
+        .card {
+            background: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .role {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .company {
+            color: var(--secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .date {
+            font-size: 0.8rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .achievements {
+            list-style: none;
+            margin-bottom: 1rem;
+        }
+
+        .achievements li {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            padding-left: 1rem;
+            position: relative;
+            color: var(--primary);
+        }
+
+        .achievements li::before {
+            content: "›";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tag {
+            background: rgba(9, 132, 227, 0.1);
+            color: var(--accent);
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .certifications {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .cert-card {
+            background: var(--light-bg);
+            padding: 1.25rem;
+            border-radius: 8px;
+        }
+
+        .cert-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .cert-issuer {
+            font-size: 0.8rem;
+            color: var(--secondary);
+        }
+
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .skill-category {
+            background: var(--light-bg);
+            padding: 1.25rem;
+            border-radius: 8px;
+        }
+
+        .skill-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            font-size: 0.85rem;
+            color: var(--secondary);
+            margin-bottom: 0.4rem;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            .name {
+                font-size: 2rem;
+            }
+        }
+
+        .language-skills {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            }
+            
+        .language {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+        }
+            
+        .language-name {
+            font-weight: bold;
+        }
+            
+        .language-level {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .hobbies {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+            
+        .hobby {
+            padding: 0.25rem 0.5rem;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            font-size: 0.875rem;
+        }            
+
+        @media print {
+            /* Force color printing */
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+
+            @page {
+                size: A4;
+                margin: 15mm;
+            }
+
+            body {
+                font-size: 11pt;
+                background: white !important;
+            }
+
+            .container {
+                max-width: 100%;
+                padding: 0;
+                margin: 0;
+            }
+
+            /* Preserve all colors */
+            .name {
+                color: #2d3436 !important;
+            }
+
+            .title, .company, .date, .cert-issuer, .skill-list li, .language-level {
+                color: #636e72 !important;
+            }
+
+            .section-title, .achievements li::before {
+                color: #0984e3 !important;
+            }
+
+            /* Preserve backgrounds */
+            .card, .cert-card, .skill-category {
+                background: #f5f5f7 !important;
+                border: 1px solid #e0e0e0 !important;
+                page-break-inside: avoid;
+            }
+
+            .tag {
+                background: rgba(9, 132, 227, 0.1) !important;
+                color: #0984e3 !important;
+                border: 1px solid rgba(9, 132, 227, 0.3) !important;
+            }
+
+            .metric {
+                background: rgba(9, 132, 227, 0.1) !important;
+                border: 1px solid rgba(9, 132, 227, 0.3) !important;
+            }
+
+            .metric-value {
+                color: #0984e3 !important;
+            }
+
+            .language, .hobby {
+                background-color: #f0f0f0 !important;
+                border: 1px solid #ddd !important;
+            }
+
+            /* Adjust layout for print */
+            .header {
+                page-break-inside: avoid;
+                page-break-after: avoid;
+            }
+
+            .section {
+                page-break-inside: avoid;
+                margin-bottom: 2rem;
+            }
+
+            .section-title {
+                page-break-after: avoid;
+            }
+
+            /* Ensure cards don't break */
+            .card, .cert-card, .skill-category {
+                page-break-inside: avoid;
+            }
+
+            /* Hide non-essential elements */
+            .card:hover {
+                transform: none !important;
+                box-shadow: none !important;
+            }
+
+            /* Profile image adjustments */
+            .round-frame {
+                width: 150px !important;
+                height: 150px !important;
+                border: 2px solid #333 !important;
+            }
+
+            /* Font adjustments for readability */
+            .name {
+                font-size: 2rem;
+            }
+
+            .title {
+                font-size: 1.1rem;
+            }
+
+            .role {
+                font-size: 1rem;
+            }
+
+            .achievements li {
+                font-size: 0.85rem;
+            }
+
+            .tag {
+                font-size: 0.75rem;
+                padding: 0.2rem 0.6rem;
+            }
+
+            /* Links */
+            a {
+                color: inherit !important;
+                text-decoration: none !important;
+            }
+
+            /* Grid adjustments for better print layout */
+            .grid {
+                gap: 1rem;
+            }
+
+            .certifications {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
+
+            .skill-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            /* Metrics styling */
+            .metrics {
+                grid-template-columns: repeat(3, 1fr) !important;
+            }
+
+            /* Ensure Font Awesome icons print */
+            .fa-solid, .fab {
+                print-color-adjust: exact !important;
+                -webkit-print-color-adjust: exact !important;
+            }
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--border);
+            margin: 2rem 0;
+        }
+
+        .round-frame {
+            width: 230px;
+            height: 230px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid #333;
+            flex-shrink: 0;
+        }
+            
+        .round-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        a:hover, a:visited, a:link, a:active
+        {
+            text-decoration: none;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .metric {
+            background: rgba(9, 132, 227, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 0.25rem;
+        }
+
+        .metric-label {
+            font-size: 0.8rem;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        @media (max-width: 640px) {
+            .metrics {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div>
+                <div>
+                    <div class="round-frame">
+                        <img src="20210416_115210-01.jpeg" alt="Profile Picture">
+                        
+                    </div>
+                    <h1 class="name">Patrick Reich</h1>
+                </div>
+            
+                <div class="title">Product Owner & IT Consultant</div>
+                <div class="contact">
+                    <div>
+                        <i class="fa-solid fa-location-crosshairs"></i>
+                        <a href="https://maps.app.goo.gl/AGzQMbzd8HD8V8hj8">
+                            Böblingen
+                        </a>
+                    </div>
+                    <div>
+                        <i class="fa-solid fa-envelope"></i>
+                        <a href="mailto:pa.reich@gmail.com"/>
+                            pa.reich@gmail.com
+                        </a>
+                    </div>
+                    <div>
+                        <i class="fab fa-linkedin"></i>
+                        <a href="https://www.linkedin.com/in/patrick-reich-10081543"/>
+                            Patrick Reich on LinkedIn
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="metrics">
+                <div class="metric">
+                    <div class="metric-value">10+</div>
+                    <div class="metric-label">Years Experience</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">25+</div>
+                    <div class="metric-label">Diverse Projects</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">5+</div>
+                    <div class="metric-label">Teams Led</div>
+                </div>
+            </div>
+        </header>
+		
+		<section class="section">
+			<h2 class="section-title">About Me</h2>
+			<div class="grid">
+                <div class="card">
+				Senior IT Professional with 10+ years of experience driving digital transformation through strategic product management and enterprise solution delivery. Proven expertise in Agile methodologies, DevOps implementation, requirements engineering, and technical architecture. Track record of leading cross-functional teams to deliver scalable solutions that align business objectives with technical capabilities.
+				</div>
+			</div>
+		</section>
+        <section class="section">
+            <h2 class="section-title">Professional Experience</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="role">IT Consultant & Product Owner</div>
+                    <div class="company">SSC-Services GmbH, Böblingen</div>
+                    <div class="date">2022 - Present</div>
+                    <ul class="achievements">
+                        <li>Led DevOps transformation reducing delivery times</li>
+                        <li>Managed €2M+ cloud migration projects</li>
+                        <li>Implemented agile practices across 3 teams</li>
+						<li>Alignment of internal and external teams</li>
+                        <li>Managed 500+ item product backlog</li>
+                        <li>Optimized operational processes to increase developer productivity</li>
+                    </ul>
+                    <div class="tags">
+                        <span class="tag">Operations Planning</span>
+                        <span class="tag">Cloud & Datacenter Migrations</span>
+                        <span class="tag">Service Provider Alignment</span>
+                        <span class="tag">Business & IT Alignment</span>
+                        <span class="tag">Incident & Service Management</span>
+                        <span class="tag">DevOps Transformation & Governance</span>
+                        <span class="tag">Software Architecture</span>
+                        <span class="tag">Software Delivery</span>
+                        <span class="tag">Software Lifecycle Management</span>
+                        <span class="tag">Agile Methodologies</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="role">IT Consultant & Agile Coach</div>
+                    <div class="company">Self-employed, Böblingen</div>
+                    <div class="date">2019 - 2022</div>
+                    <ul class="achievements">
+                        <li>Spearheaded Agile transformation for 2 small businesses</li>
+                        <li>Evaluated tools for Agile Engagement and Collaboration with gamification elements</li>
+                    </ul>
+                    <div class="tags">
+                        <span class="tag">Agile Transformation</span>
+                        <span class="tag">Agile Coaching</span>
+                        <span class="tag">Agile Methodologies</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="role">IT Consultant & Project Lead</div>
+                    <div class="company">SER Solutions Deutschland GmbH, Stuttgart</div>
+                    <div class="date">2019</div>
+                    <ul class="achievements">
+                        <li>Managed Doxis4 iECM Suite implementation for 3 Enterprise clients</li>
+                        <li>Reduced invoice processing time by 60%</li>
+                        <li>Led workshops with 50+ stakeholders</li>
+                        <li>Conducted training for 100+ users</li>
+                    </ul>
+                    <div class="tags">
+                        <span class="tag">Automated Invoice Processing</span>
+                        <span class="tag">Doxis4 iECM Suite</span>
+                        <span class="tag">Doxis4 Invoice Master</span>
+                        <span class="tag">Doxis4 Solution Package HR</span>
+                        <span class="tag">Doxis4 Solution Package Contract</span>
+                        <span class="tag">Microsoft Windows Server</span>
+                        <span class="tag">Microsoft SQL Server</span>
+                        <span class="tag">Microsoft Dynamics AX</span>
+                        <span class="tag">JBoss Wildfly</span>
+                        <span class="tag">Apache Tomcat</span>
+                        <span class="tag">VBScript, Java, Groovy</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="role">ECM Consultant & Solution Architect</div>
+                    <div class="company">eviatec Systems AG, Ludwigsburg</div>
+                    <div class="date">2018</div>
+                    <ul class="achievements">
+                        <li>Architected ELO ECM Enterprise solutions</li>
+                        <li>Redesigned legacy system landscapes</li>
+                        <li>Led pre-sales technical consulting</li>
+                        <li>Managed quality assurance processes</li>
+                    </ul>
+                    <div class="tags">
+                        <span class="tag">Automated Invoice Processing</span>
+                        <span class="tag">ELO Professional 9, 10, 11</span>
+                        <span class="tag">ELO Business Solution Invoice</span>  
+                        <span class="tag">Microsoft Windows Server</span>
+                        <span class="tag">Microsoft SQL Server</span>
+                        <span class="tag">FIT ERP</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="role">Software Developer & Technical Consultant</div>
+                    <div class="company">mpl Software GmbH, Stuttgart</div>
+                    <div class="date">2016 - 2018</div>
+                    <ul class="achievements">
+                        <li>Developed custom Enterprise software solutions</li>
+                        <li>Implemented third-party system integrations</li>
+                        <li>Managed technical analysis and estimations</li>
+                        <li>Enhanced proprietary product suite</li>
+                    </ul>
+                    <div class="tags">
+                        <span class="tag">Microsoft Visual Studio (C#, .NET)</span>
+                        <span class="tag">CAS genesisWorld</span>
+                        <span class="tag">CAS genesisWorld SmartDesign SDK</span>
+                        <span class="tag">CAS genesisWorld Webservices (REST)</span>
+                        <span class="tag">HTML, CSS, Twitter Bootstrap, jQuery</span>
+                        <span class="tag">NodeJS, ExpressJS</span>
+                        <span class="tag">AngularJS</span>
+                        <span class="tag">GIT</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="role">Bachelor Student</div>
+                    <div class="company">mpl Software GmbH, Stuttgart</div>
+                    <div class="date">2016</div>
+                    <ul class="achievements">
+                        <li>Bachelor Thesis "Gamification in SMEs - Integration with CRM Systems"</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="role">Working Student</div>
+                    <div class="company">Netlution GmbH, Mannheim</div>
+                    <div class="date">2016</div>
+                    <ul class="achievements">
+                        <li>Assistance for Business Development, Talent Acquisition, and Back-Office Operations</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="role">Internship</div>
+                    <div class="company">Freightgate Inc., Huntington Beach (CA, United States)</div>
+                    <div class="date">2016</div>
+                    <ul class="achievements">
+                        <li>Assistance for Business Development, Talent Acquisition, and Back-Office Operations</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="role">Working Student</div>
+                    <div class="company">CEMA GmbH, Mannheim</div>
+                    <div class="date">2013 - 2014</div>
+                    <ul class="achievements">
+                        <li>Assistance Second Level Support</li>
+                        <li>Evaluation of an Open Source solution for Service Discovery & Management</li>
+                        <li>Software Packaging & Rollout</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="role">Working Student</div>
+                    <div class="company">Krieger Systemhaus, Mannheim</div>
+                    <div class="date">2013</div>
+                    <ul class="achievements">
+                        <li>Development & Operations of the Webshop</li>
+                        <li>Development of a Time Tracking solution</li>
+                        <li>Assistance in Customer Support</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="role">Clerk</div>
+                    <div class="company">AOK Baden-Württemberg, Stuttgart</div>
+                    <div class="date">2013</div>
+                    <ul class="achievements">
+                        <li>Department for Rehabilitation</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="role">Clerk</div>
+                    <div class="company">Party & Service Plach, Weil der Stadt</div>
+                    <div class="date">2012</div>
+                </div>
+
+                <div class="card">
+                    <div class="role">Sales Assistant</div>
+                    <div class="company">E-Plus Shop GmbH, Stuttgart</div>
+                    <div class="date">2007 - 2009</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Core Competencies</h2>
+            <div class="skill-grid">
+                <div class="skill-category">
+                    <div class="skill-title">Agile & Product</div>
+                    <ul class="skill-list">
+                        <li>SAFe & Scrum Framework</li>
+                        <li>Product Ownership</li>
+                        <li>Backlog Management</li>
+                        <li>Stakeholder Alignment</li>
+                        <li>Requirements Engineering</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-title">Technical</div>
+                    <ul class="skill-list">
+                        <li>Cloud Architecture</li>
+                        <li>DevOps Practices</li>
+                        <li>System Integration</li>
+                        <li>Enterprise Solutions</li>
+                        <li>Platform Engineering</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-title">Leadership</div>
+                    <ul class="skill-list">
+                        <li>Team Management</li>
+                        <li>Project Leadership</li>
+                        <li>Strategic Planning</li>
+                        <li>Process Optimization</li>
+                        <li>Servant Leader</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Certifications</h2>
+            <div class="certifications">
+                <div class="cert-card">
+                    <div class="cert-title">Professional Scrum Product Owner (PSPO)</div>
+                    <div class="cert-issuer">Scrum.org · 2024</div>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-title">Professional Scrum Master I (PSM I)</div>
+                    <div class="cert-issuer">Scrum.org · 2024</div>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-title">CPREAP - Requirements Engineering</div>
+                    <div class="cert-issuer">iSQI Group · 2024</div>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-title">ITIL4 Foundation</div>
+                    <div class="cert-issuer">PeopleCert · 2023</div>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-title">Doxis4 BPM</div>
+                    <div class="cert-issuer">SER Group · 2019</div>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-title">Doxis4 Systemadministration</div>
+                    <div class="cert-issuer">SER Group · 2019</div>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-title">Doxis4 winCube Scripting</div>
+                    <div class="cert-issuer">SER Group · 2019</div>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-title">Doxis4 CSB Fachadministration</div>
+                    <div class="cert-issuer">SER Group · 2019</div>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-title">Doxis4 CSB Überblick</div>
+                    <div class="cert-issuer">SER Group · 2019</div>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-title">Certified Solution Developer</div>
+                    <div class="cert-issuer">CAS Software AG · 2018</div>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-title">Certified Solution Developer</div>
+                    <div class="cert-issuer">CAS Software AG · 2017</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Further Training</h2>
+            <div class="certifications">
+                <div class="cert-card">
+                    <div class="cert-title">MPN Presales Technical Specialist Assessment for Datacenter (English)</div>
+                    <div class="cert-issuer">Microsoft Partner Network</div>
+                </div>
+                
+                <div class="cert-card">
+                    <div class="cert-title">MPN Sales Specialist Assessment for Datacenter (English)</div>
+                    <div class="cert-issuer">Microsoft Partner Network</div>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-title">Mindjet Mindmanager - Einführung und Anwendung der Software</div>
+                    <div class="cert-issuer">Mindjet MindManager</div>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-title">Mindmapping - das universelle Denk- und Strukturierungswerkzeug</div>
+                    <div class="cert-issuer">Mindjet MindManager</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Education</h2>
+                <div class="grid">
+                    <div class="card">
+                        <div class="role">Business Information Systems</div>
+                        <div class="company">Hochschule Mannheim</div>
+                        <div class="date">2012 - 2018</div>
+                        <ul class="achievements">
+                            <li>Focus: Enterprise Architecture, Software Engineering, Business Process Management</li>
+                            <li>Thesis: "Gamification in SMEs - Integration with CRM Systems"</li>
+                        </ul>
+                        <div class="tags">
+                            <span class="tag">Enterprise Architecture</span>
+                            <span class="tag">Software Engineering</span>
+                            <span class="tag">BPM</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="role">Business Administration and Information Systems</div>
+                        <div class="company">Hochschule Pforzheim</div>
+                        <div class="date">2010 - 2012</div>
+                        <div class="tags">
+                            <span class="tag">Business Economics</span>
+                            <span class="tag">Information Systems</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="role">Media and Event Management</div>
+                        <div class="company">Macromedia Gmbh Akademie der Medien</div>
+                        <div class="date">2005 - 2007</div>
+                        <div class="tags">
+                            <span class="tag">Media Management</span>
+                            <span class="tag">Sports Management</span>
+                            <span class="tag">Event Management</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="role">High School Diploma</div>
+                        <div class="company">Johannes-Kepler-Gynmasium</div>
+                        <div class="date">1996 - 2005</div>
+                    </div>
+            </div>            
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Languages</h2>
+            <div class="grid">
+                <div class="language">
+                    <span class="language-name">German</span>
+                    <span class="language-level">Native</span>
+                </div>
+                <div class="language">
+                    <span class="language-name">English</span>
+                    <span class="language-level">Fluent (B2)</span>
+                </div>
+                <div class="language">
+                    <span class="language-name">French</span>
+                    <span class="language-level">Basic</span>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">Hobbies</h2>
+            <div class="grid">
+                <div class="hobbies">
+                    <span class="hobby">Making Music</span>
+                    <span class="hobby">Coding &amp; AI</span>
+                    <span class="hobby">Gaming</span>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
