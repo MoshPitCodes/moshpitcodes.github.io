@@ -79,11 +79,6 @@
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 40px;
-    height: 56px;
     background: rgba(6, 7, 11, 0.7);
     backdrop-filter: blur(24px) saturate(1.2);
     border-bottom: 1px solid var(--border);
@@ -91,8 +86,22 @@
   }
 
   .nav.scrolled {
-    height: 48px;
     background: rgba(6, 7, 11, 0.92);
+  }
+
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: height 0.4s;
+  }
+
+  .nav.scrolled .nav-inner {
+    height: 48px;
   }
 
   .nav-logo {
@@ -182,6 +191,14 @@
   .nav-toggle span::before { content: ''; top: -5px; left: 0; }
   .nav-toggle span::after { content: ''; top: 5px; left: 0; }
 
+  /* ─── Centered container ─── */
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+
   /* ─── Hero ─── */
   .hero {
     position: relative;
@@ -189,12 +206,17 @@
     min-height: 100vh;
     display: flex;
     align-items: center;
-    padding: 0 80px;
+    justify-content: center;
+  }
+
+  .hero > .container {
+    width: 100%;
   }
 
   .hero-content {
     max-width: 800px;
     position: relative;
+    margin: 0 auto;
   }
 
   .hero-badge {
@@ -334,7 +356,7 @@
   section {
     position: relative;
     z-index: 2;
-    padding: 120px 80px;
+    padding: 120px 0;
   }
 
   .section-header {
@@ -450,7 +472,15 @@
     display: grid;
     grid-template-columns: 1.2fr 1fr;
     gap: 24px;
+    align-items: stretch;
     margin-bottom: 24px;
+  }
+
+  .projects-featured-right {
+    display: grid;
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    min-height: 100%;
   }
 
   .projects-grid {
@@ -460,6 +490,8 @@
   }
 
   .project-card {
+    display: flex;
+    flex-direction: column;
     background: var(--bg-elevated);
     border: 1px solid var(--border);
     border-radius: 16px;
@@ -500,10 +532,14 @@
   .project-card:hover::after { opacity: 1; }
 
   .project-card.featured {
-    grid-row: span 2;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+  }
+
+  .projects-featured-right .project-card {
+    display: flex;
+    flex-direction: column;
   }
 
   .card-icon {
@@ -591,7 +627,7 @@
   /* ─── Stack / Skills ─── */
   .stack-layout {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
   }
 
@@ -620,23 +656,31 @@
   }
 
   .skill-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 56px;
+    align-items: start;
+    column-gap: 14px;
+    padding: 9px 0;
     font-size: 13.5px;
     color: var(--text-muted);
     transition: color 0.2s;
   }
 
+  .skill-row span:first-child {
+    min-width: 0;
+    line-height: 1.45;
+  }
+
   .skill-row:hover { color: var(--text); }
 
   .skill-bar-track {
-    width: 50px;
+    width: 56px;
     height: 3px;
     background: var(--border);
     border-radius: 2px;
     overflow: hidden;
+    justify-self: end;
+    margin-top: 8px;
   }
 
   .skill-bar-fill {
@@ -712,7 +756,7 @@
   /* ─── Contact ─── */
   .contact-section {
     text-align: center;
-    padding: 160px 80px;
+    padding: 160px 0;
   }
 
   .contact-section h2 {
@@ -749,8 +793,13 @@
   footer {
     position: relative;
     z-index: 2;
-    padding: 28px 80px;
     border-top: 1px solid var(--border);
+  }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 28px 48px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -790,16 +839,18 @@
   @media (max-width: 1024px) {
     .about-layout { grid-template-columns: 1fr; }
     .projects-featured { grid-template-columns: 1fr; }
+    .projects-featured-right { grid-template-rows: auto; }
     .projects-grid { grid-template-columns: 1fr 1fr; }
     .stack-layout { grid-template-columns: 1fr 1fr; }
   }
 
   @media (max-width: 768px) {
-    .hero { padding: 0 24px; }
-    section { padding: 80px 24px; }
-    .contact-section { padding: 100px 24px; }
-    footer { padding: 24px; flex-direction: column; gap: 16px; text-align: center; }
-    .nav { padding: 0 20px; }
+    .container { padding: 0 20px; }
+    .hero { padding: 0; }
+    section { padding: 80px 0; }
+    .contact-section { padding: 100px 0; }
+    .footer-inner { padding: 24px 20px; flex-direction: column; gap: 16px; text-align: center; }
+    .nav-inner { padding: 0 20px; }
     .nav-center { display: none; }
     .nav-toggle { display: flex; }
     .nav-status { display: none; }
@@ -821,30 +872,33 @@
 
 <!-- Nav -->
 <nav class="nav" id="mainNav">
-  <a href="#" class="nav-logo">
-    <div class="nav-logo-icon">PR</div>
-    Patrick Reich
-  </a>
-  <div class="nav-center">
-    <a href="#about" class="nav-link">About</a>
-    <a href="#projects" class="nav-link">Projects</a>
-    <a href="#stack" class="nav-link">Stack</a>
-    <a href="#journey" class="nav-link">Journey</a>
-    <a href="#contact" class="nav-link">Contact</a>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-icon">PR</div>
+      Patrick Reich
+    </a>
+    <div class="nav-center">
+      <a href="#about" class="nav-link">About</a>
+      <a href="#projects" class="nav-link">Projects</a>
+      <a href="#stack" class="nav-link">Stack</a>
+      <a href="#journey" class="nav-link">Journey</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </div>
+    <div class="nav-status">
+      <div class="status-dot"></div>
+      Available for collaboration
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span></button>
   </div>
-  <div class="nav-status">
-    <div class="status-dot"></div>
-    Available for collaboration
-  </div>
-  <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span></button>
 </nav>
 
 <!-- Hero -->
 <header class="hero">
-  <div class="hero-content">
+  <div class="container">
+    <div class="hero-content">
     <div class="hero-badge">
       <span class="dot"></span>
-      Product Owner · Tinkerer · Occasional Sleep-Deprived Sysadmin
+      Product Owner · Builder · Agentic Coder
     </div>
     <h1>I build things,<br>break things, and<br><span class="accent-line">learn things.</span></h1>
     <p class="hero-sub">
@@ -875,10 +929,12 @@
       </div>
     </div>
   </div>
+  </div>
 </header>
 
 <!-- About -->
 <section id="about">
+  <div class="container">
   <div class="section-header reveal">
     <span class="section-num">01</span>
     <span class="section-title">About</span>
@@ -895,17 +951,17 @@
         development teams that agile isn't just a buzzword.
       </p>
       <p>
-        Before that I bounced around ECM consulting, built enterprise software, 
-        did a stint at a startup in Huntington Beach, California — and somewhere 
-        along the way realized I just really like <strong>making systems work well</strong>. 
-        Whether that's a Jira workflow or a NixOS flake is kind of secondary.
+        Lately I've been deep into <strong>agentic coding</strong> — using Claude Code 
+        and OpenCode to build things faster than I ever could solo. I write a lot of 
+        <strong>backend services and web tools</strong> for myself, mostly to solve 
+        problems I got annoyed by one too many times. If a task takes me more than 
+        twice, it gets automated or turned into a small app.
       </p>
       <p>
         The stuff I'm most proud of usually happens after hours: a 
         <strong>Proxmox homelab</strong> that keeps growing, game servers for friends, 
-        Hytale mods nobody asked for, and an EVE Online spreadsheet habit I'm 
-        not ready to talk about. I believe the best way to learn infrastructure 
-        is to break your own — repeatedly, at 2 AM.
+        Hytale mods nobody asked for, custom web dashboards for things that didn't 
+        need dashboards, and an EVE Online spreadsheet habit I'm not ready to talk about.
       </p>
     </div>
 
@@ -921,10 +977,12 @@
       </div>
     </div>
   </div>
+  </div>
 </section>
 
 <!-- Projects -->
 <section id="projects">
+  <div class="container">
   <div class="section-header reveal">
     <span class="section-num">02</span>
     <span class="section-title">Things I've Built</span>
@@ -954,7 +1012,7 @@
       <span class="card-arrow">↗</span>
     </div>
 
-    <div style="display:flex;flex-direction:column;gap:24px;">
+    <div class="projects-featured-right">
       <div class="project-card reveal reveal-delay-1" style="--card-accent: var(--accent-hot);">
         <div class="card-tags">
           <span class="tag red">Gaming</span>
@@ -988,6 +1046,54 @@
   </div>
 
   <div class="projects-grid">
+    <div class="project-card reveal" style="--card-accent: var(--accent-amber);">
+      <div class="card-tags">
+        <span class="tag amber">AI</span>
+        <span class="tag green">Agentic</span>
+      </div>
+      <h3>Agentic Coding Workflow</h3>
+      <p>Claude Code and OpenCode as daily drivers. I pair-program with AI agents 
+         to build backends, web tools, and automations — it's changed how I think about 
+         what one person can ship.</p>
+      <div class="card-meta">
+        <span><strong>Claude Code</strong></span>
+        <span><strong>OpenCode</strong></span>
+      </div>
+      <span class="card-arrow">↗</span>
+    </div>
+
+    <div class="project-card reveal reveal-delay-1" style="--card-accent: var(--accent);">
+      <div class="card-tags">
+        <span class="tag green">Tools</span>
+        <span class="tag blue">Backend</span>
+      </div>
+      <h3>Personal Tool Factory</h3>
+      <p>If something annoys me twice, it becomes a CLI tool or a small web app. 
+         Asset trackers, config generators, API wrappers — I build utilities for 
+         myself and occasionally they're useful to others too.</p>
+      <div class="card-meta">
+        <span><strong>Python</strong></span>
+        <span><strong>REST APIs</strong></span>
+      </div>
+      <span class="card-arrow">↗</span>
+    </div>
+
+    <div class="project-card reveal reveal-delay-2" style="--card-accent: var(--accent-blue);">
+      <div class="card-tags">
+        <span class="tag blue">Web</span>
+        <span class="tag purple">Frontend</span>
+      </div>
+      <h3>Web Dev & Dashboards</h3>
+      <p>Dashboards, admin panels, landing pages — I enjoy the full stack loop from 
+         backend API to something you can click on. Mostly built for my own projects 
+         and homelab monitoring.</p>
+      <div class="card-meta">
+        <span><strong>HTML/CSS/JS</strong></span>
+        <span><strong>Full Stack</strong></span>
+      </div>
+      <span class="card-arrow">↗</span>
+    </div>
+
     <div class="project-card reveal" style="--card-accent: var(--accent);">
       <div class="card-tags">
         <span class="tag green">DevOps</span>
@@ -1020,7 +1126,7 @@
 
     <div class="project-card reveal reveal-delay-2" style="--card-accent: var(--accent-amber);">
       <div class="card-tags">
-        <span class="tag amber">AI</span>
+        <span class="tag amber">LLM</span>
         <span class="tag purple">Workflow</span>
       </div>
       <h3>Local LLM Experiments</h3>
@@ -1033,10 +1139,12 @@
       <span class="card-arrow">↗</span>
     </div>
   </div>
+  </div>
 </section>
 
 <!-- Stack -->
 <section id="stack">
+  <div class="container">
   <div class="section-header reveal">
     <span class="section-num">03</span>
     <span class="section-title">What I Use</span>
@@ -1056,33 +1164,44 @@
     <div class="stack-card reveal reveal-delay-1">
       <h4>Development</h4>
       <div class="skill-row"><span>Python</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="88"></div></div></div>
+      <div class="skill-row"><span>HTML / CSS / JS</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="78"></div></div></div>
+      <div class="skill-row"><span>Backend APIs</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="85"></div></div></div>
       <div class="skill-row"><span>PowerShell</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="82"></div></div></div>
       <div class="skill-row"><span>Bash / Nix</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="78"></div></div></div>
-      <div class="skill-row"><span>REST APIs</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="92"></div></div></div>
       <div class="skill-row"><span>Git / GitHub</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="90"></div></div></div>
     </div>
 
     <div class="stack-card reveal reveal-delay-2">
-      <h4>Platforms & Methods</h4>
-      <div class="skill-row"><span>Jira / Confluence</span><div class="skill-bar-track"><div class="skill-bar-fill purple" data-width="95"></div></div></div>
-      <div class="skill-row"><span>SAFe 6.0 / Agile</span><div class="skill-bar-track"><div class="skill-bar-fill purple" data-width="90"></div></div></div>
-      <div class="skill-row"><span>ECM (Doxis4, ELO)</span><div class="skill-bar-track"><div class="skill-bar-fill purple" data-width="85"></div></div></div>
-      <div class="skill-row"><span>MS SQL Server</span><div class="skill-bar-track"><div class="skill-bar-fill purple" data-width="80"></div></div></div>
-      <div class="skill-row"><span>Stakeholder Mgmt</span><div class="skill-bar-track"><div class="skill-bar-fill purple" data-width="92"></div></div></div>
+      <h4>AI & Agentic</h4>
+      <div class="skill-row"><span>Claude Code</span><div class="skill-bar-track"><div class="skill-bar-fill purple" data-width="88"></div></div></div>
+      <div class="skill-row"><span>OpenCode</span><div class="skill-bar-track"><div class="skill-bar-fill purple" data-width="80"></div></div></div>
+      <div class="skill-row"><span>Ollama / Local LLMs</span><div class="skill-bar-track"><div class="skill-bar-fill purple" data-width="75"></div></div></div>
+      <div class="skill-row"><span>Agentic Workflows</span><div class="skill-bar-track"><div class="skill-bar-fill purple" data-width="82"></div></div></div>
+      <div class="skill-row"><span>Prompt Engineering</span><div class="skill-bar-track"><div class="skill-bar-fill purple" data-width="85"></div></div></div>
     </div>
 
     <div class="stack-card reveal reveal-delay-3">
-      <h4>After Hours</h4>
-      <div class="skill-row"><span>EVE Online</span><div class="skill-bar-track"><div class="skill-bar-fill amber" data-width="85"></div></div></div>
-      <div class="skill-row"><span>Arma Reforger</span><div class="skill-bar-track"><div class="skill-bar-fill amber" data-width="78"></div></div></div>
-      <div class="skill-row"><span>Hytale Modding</span><div class="skill-bar-track"><div class="skill-bar-fill amber" data-width="80"></div></div></div>
-      <div class="skill-row"><span>Game Servers</span><div class="skill-bar-track"><div class="skill-bar-fill amber" data-width="88"></div></div></div>
+      <h4>Platforms & Methods</h4>
+      <div class="skill-row"><span>Jira / Confluence</span><div class="skill-bar-track"><div class="skill-bar-fill amber" data-width="95"></div></div></div>
+      <div class="skill-row"><span>SAFe 6.0 / Agile</span><div class="skill-bar-track"><div class="skill-bar-fill amber" data-width="90"></div></div></div>
+      <div class="skill-row"><span>ECM (Doxis4, ELO)</span><div class="skill-bar-track"><div class="skill-bar-fill amber" data-width="85"></div></div></div>
+      <div class="skill-row"><span>MS SQL Server</span><div class="skill-bar-track"><div class="skill-bar-fill amber" data-width="80"></div></div></div>
     </div>
+
+    <div class="stack-card reveal reveal-delay-4">
+      <h4>After Hours</h4>
+      <div class="skill-row"><span>EVE Online</span><div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div></div>
+      <div class="skill-row"><span>Arma Reforger</span><div class="skill-bar-track"><div class="skill-bar-fill" data-width="78"></div></div></div>
+      <div class="skill-row"><span>Hytale Modding</span><div class="skill-bar-track"><div class="skill-bar-fill" data-width="80"></div></div></div>
+      <div class="skill-row"><span>Game Servers</span><div class="skill-bar-track"><div class="skill-bar-fill" data-width="88"></div></div></div>
+    </div>
+  </div>
   </div>
 </section>
 
 <!-- Journey -->
 <section id="journey">
+  <div class="container">
   <div class="section-header reveal">
     <span class="section-num">04</span>
     <span class="section-title">Journey</span>
@@ -1121,31 +1240,35 @@
       <div class="timeline-desc">Working student and intern stints across Germany and California — Krieger Systemhaus, CEMA AG, Freightgate in Huntington Beach, Netlution. Built webshops, packaged software, migrated hypervisors, and figured out this is what I want to do.</div>
     </div>
   </div>
+  </div>
 </section>
 
 <!-- Contact -->
 <section id="contact" class="contact-section">
+  <div class="container">
   <div class="reveal">
     <h2>Want to talk<br><span class="accent-line">nerdy stuff?</span></h2>
     <p class="sub">Infrastructure, DevOps, homelabs, NixOS, gaming, or whatever you're 
        building — I'm always happy to chat. Worst case we argue about distros.</p>
     <div class="contact-buttons">
-      <a href="mailto:hello@moshpitcodes.dev" class="btn btn-primary">→ Say hi</a>
+      <a href="https://www.linkedin.com/in/patrick-reich-10081543/" class="btn btn-primary">→ Say hi</a>
       <a href="https://github.com/moshpitcodes" class="btn btn-ghost">GitHub</a>
-      <a href="https://www.linkedin.com/in/patrick-reich-10081543/" class="btn btn-ghost">LinkedIn</a>
     </div>
+  </div>
   </div>
 </section>
 
 <!-- Footer -->
 <footer>
-  <span>© 2026 Patrick Reich</span>
-  <div class="footer-links">
-    <a href="https://github.com/moshpitcodes">GitHub</a>
-    <a href="#">RSS</a>
-    <a href="#">PGP</a>
+  <div class="footer-inner">
+    <span>© 2026 Patrick Reich</span>
+    <div class="footer-links">
+      <a href="https://github.com/moshpitcodes">GitHub</a>
+      <a href="#">RSS</a>
+      <a href="#">PGP</a>
+    </div>
+    <span>Built with caffeine &amp; questionable flake.nix configs</span>
   </div>
-  <span>Built with caffeine &amp; questionable flake.nix configs</span>
 </footer>
 
 <script>
@@ -1320,17 +1443,20 @@ const terminalLines = [
   { type: 'br' },
   { type: 'output', text: 'Product Owner by day' },
   { type: 'br' },
-  { type: 'output', text: 'Homelab gremlin by night' },
+  { type: 'output', text: 'Agentic coder by night' },
   { type: 'br' }, { type: 'br' },
   { type: 'prompt', text: '$ ' },
   { type: 'cmd', text: 'ls ~/currently-obsessed-with/' },
   { type: 'br' },
-  { type: 'dir', text: 'nixos-flakes/  proxmox/  hytale-mods/  eve-spreadsheets/' },
+  { type: 'dir', text: 'claude-code/  nixos-flakes/  proxmox/  web-tools/' },
+  { type: 'br' },
+  { type: 'dir', text: 'hytale-mods/  backend-apis/  eve-spreadsheets/' },
   { type: 'br' }, { type: 'br' },
   { type: 'prompt', text: '$ ' },
-  { type: 'cmd', text: 'uptime' },
+  { type: 'cmd', text: 'which code-assistant' },
   { type: 'br' },
-  { type: 'output', text: '10+ years and mass reboot is not an option' },
+  { type: 'output', text: '/usr/local/bin/claude-code' },
+  { type: 'comment', text: ' # the future is agentic' },
   { type: 'br' }, { type: 'br' },
   { type: 'prompt', text: '$ ' },
   { type: 'cursor' }
