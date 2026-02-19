@@ -97,6 +97,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative;
     transition: height 0.4s;
   }
 
@@ -176,6 +177,20 @@
     width: 36px; height: 36px;
     cursor: pointer;
     position: relative;
+  }
+
+  .nav-toggle[aria-expanded="true"] span {
+    background: transparent;
+  }
+
+  .nav-toggle[aria-expanded="true"] span::before {
+    top: 0;
+    transform: rotate(45deg);
+  }
+
+  .nav-toggle[aria-expanded="true"] span::after {
+    top: 0;
+    transform: rotate(-45deg);
   }
   .nav-toggle span,
   .nav-toggle span::before,
@@ -393,8 +408,24 @@
   .about-layout {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 48px;
+    gap: 56px;
     align-items: start;
+  }
+
+  .about-text {
+    background: linear-gradient(165deg, rgba(13, 15, 21, 0.95) 0%, rgba(9, 11, 16, 0.95) 100%);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px;
+  }
+
+  .about-kicker {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--accent-blue);
+    margin-bottom: 14px;
   }
 
   .about-text p {
@@ -410,10 +441,22 @@
   }
 
   .terminal-block {
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
+    background: linear-gradient(160deg, #0a0d13 0%, #0f1320 100%);
+    border: 1px solid rgba(107, 181, 255, 0.35);
     border-radius: 14px;
     overflow: hidden;
+    box-shadow: 0 26px 64px rgba(0, 0, 0, 0.45), 0 0 28px rgba(107, 181, 255, 0.12);
+    position: relative;
+  }
+
+  .terminal-block::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-blue), transparent);
   }
 
   .terminal-bar {
@@ -421,7 +464,7 @@
     align-items: center;
     gap: 8px;
     padding: 14px 18px;
-    background: var(--bg-card);
+    background: rgba(16, 21, 34, 0.95);
     border-bottom: 1px solid var(--border);
   }
 
@@ -441,9 +484,10 @@
     padding: 24px;
     font-family: var(--mono);
     font-size: 12.5px;
-    line-height: 2.1;
+    line-height: 1.95;
     color: var(--text-muted);
     min-height: 260px;
+    background: linear-gradient(180deg, rgba(8, 10, 16, 0.7) 0%, rgba(8, 10, 16, 0.3) 100%);
   }
 
   .terminal-body .prompt { color: var(--accent); }
@@ -597,13 +641,22 @@
 
   .card-meta {
     display: flex;
-    gap: 20px;
+    gap: 10px;
+    flex-wrap: wrap;
     padding-top: 16px;
     border-top: 1px solid var(--border);
     font-family: var(--mono);
     font-size: 11px;
     color: var(--text-dim);
     margin-top: auto;
+  }
+
+  .card-meta span {
+    padding: 4px 8px;
+    border: 1px solid rgba(122, 127, 150, 0.28);
+    border-radius: 999px;
+    background: rgba(9, 12, 18, 0.7);
+    white-space: nowrap;
   }
 
   .card-meta span strong {
@@ -627,7 +680,7 @@
   /* ─── Stack / Skills ─── */
   .stack-layout {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 20px;
   }
 
@@ -657,7 +710,7 @@
 
   .skill-row {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 56px;
+    grid-template-columns: minmax(0, 1fr) 96px;
     align-items: start;
     column-gap: 14px;
     padding: 9px 0;
@@ -674,26 +727,108 @@
   .skill-row:hover { color: var(--text); }
 
   .skill-bar-track {
-    width: 56px;
-    height: 3px;
-    background: var(--border);
-    border-radius: 2px;
+    width: 96px;
+    height: 6px;
+    background: linear-gradient(90deg, #181c29 0%, #121622 100%);
+    border: 1px solid rgba(122, 127, 150, 0.25);
+    border-radius: 999px;
     overflow: hidden;
     justify-self: end;
-    margin-top: 8px;
+    margin-top: 6px;
   }
 
   .skill-bar-fill {
     height: 100%;
-    border-radius: 2px;
-    background: var(--accent);
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--accent) 0%, #7affc7 100%);
+    box-shadow: 0 0 12px rgba(100, 255, 186, 0.35);
     transition: width 1s var(--ease-out);
     width: 0;
   }
 
-  .skill-bar-fill.blue { background: var(--accent-blue); }
-  .skill-bar-fill.purple { background: var(--accent-purple); }
-  .skill-bar-fill.amber { background: var(--accent-amber); }
+  .skill-bar-fill.blue {
+    background: linear-gradient(90deg, var(--accent-blue) 0%, #8dc6ff 100%);
+    box-shadow: 0 0 12px rgba(107, 181, 255, 0.33);
+  }
+  .skill-bar-fill.purple {
+    background: linear-gradient(90deg, var(--accent-purple) 0%, #c0adff 100%);
+    box-shadow: 0 0 12px rgba(167, 139, 250, 0.32);
+  }
+  .skill-bar-fill.amber {
+    background: linear-gradient(90deg, var(--accent-amber) 0%, #fddf8c 100%);
+    box-shadow: 0 0 12px rgba(251, 191, 36, 0.28);
+  }
+
+  /* ─── Agentic stats grid ─── */
+  .agentic-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  .agentic-stat {
+    text-align: center;
+    padding: 10px 4px;
+    background: rgba(251, 191, 36, 0.04);
+    border: 1px solid rgba(251, 191, 36, 0.10);
+    border-radius: 8px;
+  }
+
+  .agentic-stat-value {
+    font-family: var(--mono);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--accent-amber);
+    letter-spacing: -0.5px;
+  }
+
+  .agentic-stat-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 2px;
+  }
+
+  /* ─── Game stat rows (After Hours) ─── */
+  .game-stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13.5px;
+    color: var(--text-muted);
+    transition: color 0.2s;
+  }
+  .game-stat-row:last-child { border-bottom: none; }
+  .game-stat-row:hover { color: var(--text); }
+  .game-stat-hours {
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: -0.5px;
+  }
+  .game-stat-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+    margin-top: 4px;
+    border-top: 1px solid rgba(100, 255, 186, 0.15);
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+  .game-stat-total .game-stat-hours {
+    font-size: 15px;
+    font-weight: 700;
+  }
 
   /* ─── Timeline ─── */
   .timeline {
@@ -751,6 +886,43 @@
     font-size: 14px;
     color: var(--text-muted);
     line-height: 1.6;
+  }
+
+  /* ─── Certifications ─── */
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+  }
+
+  .cert-item {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    transition: all 0.3s var(--ease-out);
+  }
+
+  .cert-item:hover {
+    border-color: var(--border-light);
+    transform: translateY(-2px);
+  }
+
+  .cert-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .cert-meta {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+
+  .cert-meta .cert-year {
+    color: var(--accent);
   }
 
   /* ─── Contact ─── */
@@ -851,7 +1023,38 @@
     .contact-section { padding: 100px 0; }
     .footer-inner { padding: 24px 20px; flex-direction: column; gap: 16px; text-align: center; }
     .nav-inner { padding: 0 20px; }
-    .nav-center { display: none; }
+    .nav-center {
+      position: absolute;
+      top: calc(100% + 10px);
+      left: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 12px;
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      background: rgba(13, 15, 21, 0.96);
+      backdrop-filter: blur(18px);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(-8px) scale(0.98);
+      transform-origin: top;
+      transition: opacity 0.25s var(--ease-out), transform 0.25s var(--ease-out), visibility 0.25s;
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.45);
+      z-index: 120;
+    }
+    .nav.open .nav-center {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+    .nav-center .nav-link {
+      padding: 10px 12px;
+      border-radius: 8px;
+    }
     .nav-toggle { display: flex; }
     .nav-status { display: none; }
     .hero-stats { gap: 24px; flex-wrap: wrap; }
@@ -859,6 +1062,7 @@
     .stack-layout { grid-template-columns: 1fr; }
     .hero h1 { letter-spacing: -1px; }
     .stat-value { font-size: 22px; }
+    .certs-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -877,18 +1081,20 @@
       <div class="nav-logo-icon">PR</div>
       Patrick Reich
     </a>
-    <div class="nav-center">
+    <div class="nav-center" id="mainNavLinks">
       <a href="#about" class="nav-link">About</a>
       <a href="#projects" class="nav-link">Projects</a>
+      <a href="#work" class="nav-link">Work</a>
       <a href="#stack" class="nav-link">Stack</a>
       <a href="#journey" class="nav-link">Journey</a>
+      <a href="#certs" class="nav-link">Certs</a>
       <a href="#contact" class="nav-link">Contact</a>
     </div>
     <div class="nav-status">
       <div class="status-dot"></div>
       Available for collaboration
     </div>
-    <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span></button>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mainNavLinks"><span></span></button>
   </div>
 </nav>
 
@@ -898,13 +1104,16 @@
     <div class="hero-content">
     <div class="hero-badge">
       <span class="dot"></span>
-      Product Owner · Builder · Agentic Coder
+      Product Owner · DevOps Enthusiast · Gamer
     </div>
-    <h1>I build things,<br>break things, and<br><span class="accent-line">learn things.</span></h1>
+    <h1>Moderately nerdy,<br><span class="accent-line">techy at heart.</span></h1>
     <p class="hero-sub">
-      By day I wrangle DevOps platforms and cloud migrations. By night I'm deep in 
-      NixOS configs, spinning up Proxmox clusters, or modding games that don't need modding. 
-      I've been doing this for over a decade and I'm still not bored.
+      Senior IT Specialist turning Agile chaos into actual results. I bridge the gap 
+      between what developers build and what stakeholders think they asked for. Outside 
+      the office, I'm chasing lap records on racing sims, exploring stars in pixel 
+      spaceships, and attempting to make my guitar sound less like a dying cat. Able to 
+      sit in my chair for extended periods of time. Oh, and I have AI slaves cause 
+      that's trending now apparently.
     </p>
     <div class="hero-actions">
       <a href="#projects" class="btn btn-primary">See my work ↓</a>
@@ -916,12 +1125,12 @@
         <span class="stat-label">Years Building</span>
       </div>
       <div class="stat">
-        <span class="stat-value">∞</span>
-        <span class="stat-label">Side Projects</span>
+        <span class="stat-value" data-count="35" data-suffix="+">0</span>
+        <span class="stat-label">Projects Shipped</span>
       </div>
       <div class="stat">
-        <span class="stat-value" data-count="2">0</span>
-        <span class="stat-label">AM Flake Debugs</span>
+        <span class="stat-value" data-count="5" data-suffix="+">0</span>
+        <span class="stat-label">Teams Led</span>
       </div>
       <div class="stat">
         <span class="stat-value">1</span>
@@ -943,6 +1152,7 @@
 
   <div class="about-layout">
     <div class="about-text reveal">
+      <p class="about-kicker">Narrative</p>
       <p>
         Hey — I'm Patrick. I've spent the last decade somewhere between 
         <strong>product ownership</strong> and <strong>getting my hands dirty 
@@ -963,6 +1173,12 @@
         Hytale mods nobody asked for, custom web dashboards for things that didn't 
         need dashboards, and an EVE Online spreadsheet habit I'm not ready to talk about.
       </p>
+      <p>
+        When I'm not staring at a terminal, I'm usually <strong>playing guitar</strong>. 
+        My taste runs the full spectrum from <strong>jazz to metal</strong> — think 
+        Coltrane one evening, Meshuggah the next. Music keeps me sane when the 
+        build pipeline doesn't.
+      </p>
     </div>
 
     <div class="terminal-block reveal reveal-delay-2">
@@ -970,7 +1186,7 @@
         <div class="t-dot r"></div>
         <div class="t-dot y"></div>
         <div class="t-dot g"></div>
-        <span class="t-title">~/.config/about.sh</span>
+        <span class="t-title">~/runtime/profile.snapshot</span>
       </div>
       <div class="terminal-body" id="terminalBody">
         <!-- Filled by JS typing animation -->
@@ -990,55 +1206,87 @@
   </div>
 
   <div class="projects-featured">
-    <div class="project-card featured reveal" style="--card-accent: var(--accent-purple);">
+    <div class="project-card featured reveal" style="--card-accent: var(--accent-amber);">
       <div>
-        <div class="card-icon">🖥</div>
         <div class="card-tags">
-          <span class="tag purple">Homelab</span>
-          <span class="tag amber">NixOS</span>
-          <span class="tag green">Infra</span>
+          <span class="tag amber">AI</span>
+          <span class="tag amber">Agentic</span>
+          <span class="tag amber">Workflow</span>
         </div>
-        <h3>The Homelab That Keeps Growing</h3>
-        <p>What started as "I'll just try Proxmox" turned into a full virtualization cluster 
-           with NixOS nodes managed through flakes, VLANs for network segmentation, NVMe storage, 
-           and Ansible playbooks for everything I got tired of doing twice. It's my favorite 
-           way to learn — and occasionally lose a weekend.</p>
+        <h3>Agentic Coding Workflow</h3>
+        <p>Claude Code and OpenCode as daily drivers. I pair-program with AI agents 
+           to build backends, web tools, and automations — it's fundamentally changed 
+           how I think about what one person can ship. Custom MCP servers, agent 
+           pipelines, structured prompts, and multi-model orchestration through 
+           OpenRouter. Most of the projects on this page were built or accelerated 
+           this way. I've gone from "AI is a toy" to "AI is my co-pilot" in about 
+           six months.</p>
+        <div class="agentic-stats">
+          <div class="agentic-stat">
+            <div class="agentic-stat-value">46</div>
+            <div class="agentic-stat-label">Agents</div>
+          </div>
+          <div class="agentic-stat">
+            <div class="agentic-stat-value">14</div>
+            <div class="agentic-stat-label">Commands</div>
+          </div>
+          <div class="agentic-stat">
+            <div class="agentic-stat-value">8</div>
+            <div class="agentic-stat-label">Skills</div>
+          </div>
+          <div class="agentic-stat">
+            <div class="agentic-stat-value">7</div>
+            <div class="agentic-stat-label">Plugins</div>
+          </div>
+          <div class="agentic-stat">
+            <div class="agentic-stat-value">1</div>
+            <div class="agentic-stat-label">Custom Tool</div>
+          </div>
+          <div class="agentic-stat">
+            <div class="agentic-stat-value">1</div>
+            <div class="agentic-stat-label">MCP Server</div>
+          </div>
+        </div>
       </div>
       <div class="card-meta">
-        <span><strong>Proxmox</strong></span>
-        <span><strong>NixOS</strong> Flakes</span>
-        <span><strong>Ansible</strong></span>
+        <span><strong>Core:</strong> AI Pair Programming</span>
+        <span><strong>Automation:</strong> Agent Pipelines</span>
+        <span><strong>Stack:</strong> Claude + OpenCode</span>
       </div>
       <span class="card-arrow">↗</span>
     </div>
 
     <div class="projects-featured-right">
-      <div class="project-card reveal reveal-delay-1" style="--card-accent: var(--accent-hot);">
+      <div class="project-card reveal reveal-delay-1" style="--card-accent: var(--accent);">
+        <div class="card-tags">
+          <span class="tag green">Homelab</span>
+          <span class="tag green">NixOS</span>
+          <span class="tag green">Infra</span>
+        </div>
+        <h3>The Homelab That Keeps Growing</h3>
+        <p>What started as "I'll just try Proxmox" turned into a full virtualization cluster 
+           with NixOS nodes managed through flakes, VLANs for network segmentation, NVMe storage, 
+           and Ansible playbooks for everything I got tired of doing twice.</p>
+        <div class="card-meta">
+          <span><strong>Core:</strong> Proxmox Cluster</span>
+          <span><strong>Automation:</strong> Ansible + Flakes</span>
+          <span><strong>Stack:</strong> VLAN + NVMe</span>
+        </div>
+        <span class="card-arrow">↗</span>
+      </div>
+
+      <div class="project-card reveal reveal-delay-2" style="--card-accent: var(--accent-hot);">
         <div class="card-tags">
           <span class="tag red">Gaming</span>
-          <span class="tag amber">Modding</span>
+          <span class="tag red">Modding</span>
         </div>
         <h3>Living Lands — Hytale</h3>
         <p>A mod series for Hytale that adds dynamic ecosystems. Built a Discord 
            community around it and learned more about game design than I expected to.</p>
         <div class="card-meta">
-          <span><strong>Hytale</strong></span>
-          <span><strong>Discord</strong> community</span>
-        </div>
-        <span class="card-arrow">↗</span>
-      </div>
-
-      <div class="project-card reveal reveal-delay-2" style="--card-accent: var(--accent-blue);">
-        <div class="card-tags">
-          <span class="tag blue">Servers</span>
-          <span class="tag red">Gaming</span>
-        </div>
-        <h3>Game Server Fleet</h3>
-        <p>EVE Online tools, Arma Reforger servers, PowerShell automation — because 
-           why play games normally when you can also ops them.</p>
-        <div class="card-meta">
-          <span><strong>EVE</strong> + Arma</span>
-          <span><strong>PowerShell</strong></span>
+          <span><strong>Core:</strong> Hytale Modding</span>
+          <span><strong>Automation:</strong> Build Pipeline</span>
+          <span><strong>Stack:</strong> Java + Discord</span>
         </div>
         <span class="card-arrow">↗</span>
       </div>
@@ -1046,18 +1294,18 @@
   </div>
 
   <div class="projects-grid">
-    <div class="project-card reveal" style="--card-accent: var(--accent-amber);">
+    <div class="project-card reveal" style="--card-accent: var(--accent-hot);">
       <div class="card-tags">
-        <span class="tag amber">AI</span>
-        <span class="tag green">Agentic</span>
+        <span class="tag red">Servers</span>
+        <span class="tag red">Gaming</span>
       </div>
-      <h3>Agentic Coding Workflow</h3>
-      <p>Claude Code and OpenCode as daily drivers. I pair-program with AI agents 
-         to build backends, web tools, and automations — it's changed how I think about 
-         what one person can ship.</p>
+      <h3>Game Server Fleet</h3>
+      <p>EVE Online tools, Arma Reforger servers, PowerShell automation — because 
+         why play games normally when you can also ops them.</p>
       <div class="card-meta">
-        <span><strong>Claude Code</strong></span>
-        <span><strong>OpenCode</strong></span>
+        <span><strong>Core:</strong> Dedicated Servers</span>
+        <span><strong>Automation:</strong> PowerShell</span>
+        <span><strong>Stack:</strong> EVE + Arma</span>
       </div>
       <span class="card-arrow">↗</span>
     </div>
@@ -1065,22 +1313,23 @@
     <div class="project-card reveal reveal-delay-1" style="--card-accent: var(--accent);">
       <div class="card-tags">
         <span class="tag green">Tools</span>
-        <span class="tag blue">Backend</span>
+        <span class="tag green">Backend</span>
       </div>
       <h3>Personal Tool Factory</h3>
       <p>If something annoys me twice, it becomes a CLI tool or a small web app. 
          Asset trackers, config generators, API wrappers — I build utilities for 
          myself and occasionally they're useful to others too.</p>
       <div class="card-meta">
-        <span><strong>Python</strong></span>
-        <span><strong>REST APIs</strong></span>
+        <span><strong>Core:</strong> Internal Tooling</span>
+        <span><strong>Automation:</strong> CLI Scaffolding</span>
+        <span><strong>Stack:</strong> Python + REST</span>
       </div>
       <span class="card-arrow">↗</span>
     </div>
 
-    <div class="project-card reveal reveal-delay-2" style="--card-accent: var(--accent-blue);">
+    <div class="project-card reveal reveal-delay-2" style="--card-accent: var(--accent-purple);">
       <div class="card-tags">
-        <span class="tag blue">Web</span>
+        <span class="tag purple">Web</span>
         <span class="tag purple">Frontend</span>
       </div>
       <h3>Web Dev & Dashboards</h3>
@@ -1088,23 +1337,57 @@
          backend API to something you can click on. Mostly built for my own projects 
          and homelab monitoring.</p>
       <div class="card-meta">
-        <span><strong>HTML/CSS/JS</strong></span>
-        <span><strong>Full Stack</strong></span>
+        <span><strong>Core:</strong> Monitoring UIs</span>
+        <span><strong>Automation:</strong> API Integration</span>
+        <span><strong>Stack:</strong> JS + Frontend</span>
       </div>
       <span class="card-arrow">↗</span>
     </div>
 
+    <div class="project-card reveal" style="--card-accent: var(--accent-amber);">
+      <div class="card-tags">
+        <span class="tag amber">LLM</span>
+        <span class="tag amber">Workflow</span>
+      </div>
+      <h3>Local LLM Experiments</h3>
+      <p>Running Ollama locally and piping it into Jira workflows, because I wanted to see 
+         if AI could make ticket grooming less painful. Jury's still out.</p>
+      <div class="card-meta">
+        <span><strong>Core:</strong> LLM Workflows</span>
+        <span><strong>Automation:</strong> Jira Grooming</span>
+        <span><strong>Stack:</strong> Ollama + Python</span>
+      </div>
+      <span class="card-arrow">↗</span>
+    </div>
+  </div>
+  </div>
+</section>
+
+<!-- Professional Work -->
+<section id="work">
+  <div class="container">
+  <div class="section-header reveal">
+    <span class="section-num">03</span>
+    <span class="section-title">Professional Work</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="projects-grid">
     <div class="project-card reveal" style="--card-accent: var(--accent);">
       <div class="card-tags">
         <span class="tag green">DevOps</span>
-        <span class="tag blue">Cloud</span>
+        <span class="tag green">Cloud</span>
+        <span class="tag green">Product</span>
       </div>
-      <h3>Cloud Migration & DevOps</h3>
-      <p>The day job at SSC-Services — moving infrastructure to the cloud, getting teams 
-         to actually enjoy agile, and managing a platform backlog that never gets shorter.</p>
+      <h3>IT Consultant & Product Owner — SSC-Services</h3>
+      <p>The current chapter. Leading a DevOps transformation that significantly cut deployment 
+         time, managing cloud migration projects worth over a million euros, and implementing 
+         agile practices across 3 teams. I own a 400+ item product backlog and have meaningfully 
+         optimized operational processes. It's the kind of role where no two weeks look the same.</p>
       <div class="card-meta">
-        <span><strong>SSC-Services</strong></span>
-        <span><strong>Since 2022</strong></span>
+        <span><strong>Core:</strong> Platform Ownership</span>
+        <span><strong>Automation:</strong> DevOps Pipelines</span>
+        <span><strong>Stack:</strong> Azure + IaC</span>
       </div>
       <span class="card-arrow">↗</span>
     </div>
@@ -1112,29 +1395,51 @@
     <div class="project-card reveal reveal-delay-1" style="--card-accent: var(--accent-blue);">
       <div class="card-tags">
         <span class="tag blue">ECM</span>
-        <span class="tag green">Automation</span>
+        <span class="tag blue">Automation</span>
       </div>
-      <h3>Enterprise ECM Systems</h3>
-      <p>A past life of implementing Doxis4 and ELO solutions — the kind of work where 
-         you cut invoice processing by 60% and nobody throws you a party.</p>
+      <h3>IT Consultant & Project Lead — SER Solutions</h3>
+      <p>Managed Doxis4 iECM Suite implementation for 3 enterprise clients. The headline 
+         achievement: reducing invoice processing time by 60%. Led workshops with 50+ 
+         stakeholders and trained 100+ users on systems they initially didn't want.</p>
       <div class="card-meta">
-        <span><strong>SER Solutions</strong></span>
-        <span><strong>eviatec</strong></span>
+        <span><strong>Core:</strong> Document Management</span>
+        <span><strong>Automation:</strong> Invoice Processing</span>
+        <span><strong>Stack:</strong> Doxis4 + SQL Server</span>
       </div>
       <span class="card-arrow">↗</span>
     </div>
 
-    <div class="project-card reveal reveal-delay-2" style="--card-accent: var(--accent-amber);">
+    <div class="project-card reveal reveal-delay-2" style="--card-accent: var(--accent-blue);">
       <div class="card-tags">
-        <span class="tag amber">LLM</span>
-        <span class="tag purple">Workflow</span>
+        <span class="tag blue">ECM</span>
+        <span class="tag blue">Architecture</span>
       </div>
-      <h3>Local LLM Experiments</h3>
-      <p>Running Ollama locally and piping it into Jira workflows, because I wanted to see 
-         if AI could make ticket grooming less painful. Jury's still out.</p>
+      <h3>ECM Consultant & Solution Architect — eviatec</h3>
+      <p>Architected ELO ECM enterprise solutions and redesigned legacy system landscapes. 
+         Handled pre-sales technical consulting and managed QA processes. The role where I 
+         learned that selling a solution is almost as important as building it.</p>
       <div class="card-meta">
-        <span><strong>Ollama</strong></span>
-        <span><strong>Python</strong></span>
+        <span><strong>Core:</strong> Solution Architecture</span>
+        <span><strong>Automation:</strong> ELO Workflows</span>
+        <span><strong>Stack:</strong> ELO + Windows Server</span>
+      </div>
+      <span class="card-arrow">↗</span>
+    </div>
+
+    <div class="project-card reveal reveal-delay-3" style="--card-accent: var(--accent-blue);">
+      <div class="card-tags">
+        <span class="tag blue">Dev</span>
+        <span class="tag blue">Backend</span>
+      </div>
+      <h3>Software Developer — mpl Software</h3>
+      <p>Where it all started properly. Built custom enterprise software, implemented 
+         third-party integrations, and enhanced the company's proprietary product suite. 
+         First real taste of CRM development with CAS genesisWorld and full-stack work 
+         with C#, Node.js, and AngularJS.</p>
+      <div class="card-meta">
+        <span><strong>Core:</strong> Enterprise Software</span>
+        <span><strong>Automation:</strong> System Integration</span>
+        <span><strong>Stack:</strong> C# + Node.js</span>
       </div>
       <span class="card-arrow">↗</span>
     </div>
@@ -1146,58 +1451,85 @@
 <section id="stack">
   <div class="container">
   <div class="section-header reveal">
-    <span class="section-num">03</span>
+    <span class="section-num">04</span>
     <span class="section-title">What I Use</span>
     <div class="section-line"></div>
   </div>
 
   <div class="stack-layout">
     <div class="stack-card reveal">
-      <h4>Infrastructure</h4>
-      <div class="skill-row"><span>Proxmox VE</span><div class="skill-bar-track"><div class="skill-bar-fill" data-width="92"></div></div></div>
-      <div class="skill-row"><span>NixOS / Flakes</span><div class="skill-bar-track"><div class="skill-bar-fill" data-width="80"></div></div></div>
-      <div class="skill-row"><span>Docker</span><div class="skill-bar-track"><div class="skill-bar-fill" data-width="90"></div></div></div>
-      <div class="skill-row"><span>Docker Compose</span><div class="skill-bar-track"><div class="skill-bar-fill" data-width="88"></div></div></div>
-      <div class="skill-row"><span>Kubernetes</span><div class="skill-bar-track"><div class="skill-bar-fill" data-width="84"></div></div></div>
-      <div class="skill-row"><span>Terraform</span><div class="skill-bar-track"><div class="skill-bar-fill" data-width="86"></div></div></div>
-      <div class="skill-row"><span>Ansible</span><div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div></div>
-      <div class="skill-row"><span>WSL2</span><div class="skill-bar-track"><div class="skill-bar-fill" data-width="88"></div></div></div>
+      <h4>AI & Agentic</h4>
+      <div class="skill-row"><span>OpenCode</span><div class="skill-bar-track"><div class="skill-bar-fill amber" data-width="82"></div></div></div>
+      <div class="skill-row"><span>Claude Code</span><div class="skill-bar-track"><div class="skill-bar-fill amber" data-width="92"></div></div></div>
+      <div class="skill-row"><span>Kilo Code</span><div class="skill-bar-track"><div class="skill-bar-fill amber" data-width="64"></div></div></div>
+      <div class="skill-row"><span>OpenRouter</span><div class="skill-bar-track"><div class="skill-bar-fill amber" data-width="70"></div></div></div>
+      <div class="skill-row"><span>Ollama</span><div class="skill-bar-track"><div class="skill-bar-fill amber" data-width="74"></div></div></div>
+      <div class="skill-row"><span>ComfyUI</span><div class="skill-bar-track"><div class="skill-bar-fill amber" data-width="56"></div></div></div>
+      <div class="skill-row"><span>n8n</span><div class="skill-bar-track"><div class="skill-bar-fill amber" data-width="66"></div></div></div>
+      <div class="skill-row"><span>MCP Servers</span><div class="skill-bar-track"><div class="skill-bar-fill amber" data-width="78"></div></div></div>
     </div>
 
     <div class="stack-card reveal reveal-delay-1">
-      <h4>Development</h4>
-      <div class="skill-row"><span>Python</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="88"></div></div></div>
-      <div class="skill-row"><span>HTML / CSS / JS</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="78"></div></div></div>
-      <div class="skill-row"><span>Backend APIs</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="85"></div></div></div>
-      <div class="skill-row"><span>PowerShell</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="82"></div></div></div>
-      <div class="skill-row"><span>Bash / Nix</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="78"></div></div></div>
-      <div class="skill-row"><span>Git / GitHub</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="90"></div></div></div>
+      <h4>Infrastructure</h4>
+      <div class="skill-row"><span>Terraform</span><div class="skill-bar-track"><div class="skill-bar-fill" data-width="78"></div></div></div>
+      <div class="skill-row"><span>Kubernetes</span><div class="skill-bar-track"><div class="skill-bar-fill" data-width="68"></div></div></div>
+      <div class="skill-row"><span>Docker</span><div class="skill-bar-track"><div class="skill-bar-fill" data-width="92"></div></div></div>
+      <div class="skill-row"><span>Proxmox VE</span><div class="skill-bar-track"><div class="skill-bar-fill" data-width="95"></div></div></div>
+      <div class="skill-row"><span>NixOS / Flakes</span><div class="skill-bar-track"><div class="skill-bar-fill" data-width="76"></div></div></div>
+      <div class="skill-row"><span>ArgoCD</span><div class="skill-bar-track"><div class="skill-bar-fill" data-width="62"></div></div></div>
     </div>
 
     <div class="stack-card reveal reveal-delay-2">
-      <h4>AI & Agentic</h4>
-      <div class="skill-row"><span>Claude Code</span><div class="skill-bar-track"><div class="skill-bar-fill purple" data-width="88"></div></div></div>
-      <div class="skill-row"><span>OpenCode</span><div class="skill-bar-track"><div class="skill-bar-fill purple" data-width="80"></div></div></div>
-      <div class="skill-row"><span>Ollama / Local LLMs</span><div class="skill-bar-track"><div class="skill-bar-fill purple" data-width="75"></div></div></div>
-      <div class="skill-row"><span>Agentic Workflows</span><div class="skill-bar-track"><div class="skill-bar-fill purple" data-width="82"></div></div></div>
-      <div class="skill-row"><span>Prompt Engineering</span><div class="skill-bar-track"><div class="skill-bar-fill purple" data-width="85"></div></div></div>
+      <h4>Backend</h4>
+      <div class="skill-row"><span>Python</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="86"></div></div></div>
+      <div class="skill-row"><span>Golang</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="60"></div></div></div>
+      <div class="skill-row"><span>C#</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="68"></div></div></div>
+      <div class="skill-row"><span>Java</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="72"></div></div></div>
     </div>
 
     <div class="stack-card reveal reveal-delay-3">
-      <h4>Platforms & Methods</h4>
-      <div class="skill-row"><span>Jira / Confluence</span><div class="skill-bar-track"><div class="skill-bar-fill amber" data-width="95"></div></div></div>
-      <div class="skill-row"><span>SAFe 6.0 / Agile</span><div class="skill-bar-track"><div class="skill-bar-fill amber" data-width="90"></div></div></div>
-      <div class="skill-row"><span>ECM (Doxis4, ELO)</span><div class="skill-bar-track"><div class="skill-bar-fill amber" data-width="85"></div></div></div>
-      <div class="skill-row"><span>Azure</span><div class="skill-bar-track"><div class="skill-bar-fill amber" data-width="88"></div></div></div>
-      <div class="skill-row"><span>Agile Hive</span><div class="skill-bar-track"><div class="skill-bar-fill amber" data-width="86"></div></div></div>
+      <h4>Frontend</h4>
+      <div class="skill-row"><span>JavaScript</span><div class="skill-bar-track"><div class="skill-bar-fill purple" data-width="74"></div></div></div>
+      <div class="skill-row"><span>TypeScript</span><div class="skill-bar-track"><div class="skill-bar-fill purple" data-width="70"></div></div></div>
+      <div class="skill-row"><span>React</span><div class="skill-bar-track"><div class="skill-bar-fill purple" data-width="62"></div></div></div>
+      <div class="skill-row"><span>Next.js</span><div class="skill-bar-track"><div class="skill-bar-fill purple" data-width="58"></div></div></div>
+      <div class="skill-row"><span>Svelte</span><div class="skill-bar-track"><div class="skill-bar-fill purple" data-width="55"></div></div></div>
+      <div class="skill-row"><span>Bubbletea</span><div class="skill-bar-track"><div class="skill-bar-fill purple" data-width="60"></div></div></div>
     </div>
 
     <div class="stack-card reveal reveal-delay-4">
+      <h4>Platforms</h4>
+      <div class="skill-row"><span>Jira</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="92"></div></div></div>
+      <div class="skill-row"><span>Confluence</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="88"></div></div></div>
+      <div class="skill-row"><span>Microsoft 365</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="82"></div></div></div>
+      <div class="skill-row"><span>Windows</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="90"></div></div></div>
+      <div class="skill-row"><span>Linux</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="86"></div></div></div>
+    </div>
+
+    <div class="stack-card reveal reveal-delay-5">
+      <h4>Methods</h4>
+      <div class="skill-row"><span>Waterfall</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="78"></div></div></div>
+      <div class="skill-row"><span>Agile</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="90"></div></div></div>
+      <div class="skill-row"><span>SAFe 6.0</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="86"></div></div></div>
+      <div class="skill-row"><span>SCRUM</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="92"></div></div></div>
+      <div class="skill-row"><span>Requirements Engineering</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="80"></div></div></div>
+    </div>
+
+    <div class="stack-card reveal">
+      <h4>Cloud</h4>
+      <div class="skill-row"><span>Azure</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="80"></div></div></div>
+      <div class="skill-row"><span>AWS</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="62"></div></div></div>
+      <div class="skill-row"><span>Vercel</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="70"></div></div></div>
+      <div class="skill-row"><span>Heroku</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="66"></div></div></div>
+    </div>
+
+    <div class="stack-card reveal reveal-delay-1">
       <h4>After Hours</h4>
-      <div class="skill-row"><span>EVE Online</span><div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div></div>
-      <div class="skill-row"><span>Arma Reforger</span><div class="skill-bar-track"><div class="skill-bar-fill" data-width="78"></div></div></div>
-      <div class="skill-row"><span>Hytale Modding</span><div class="skill-bar-track"><div class="skill-bar-fill" data-width="80"></div></div></div>
-      <div class="skill-row"><span>Game Servers</span><div class="skill-bar-track"><div class="skill-bar-fill" data-width="88"></div></div></div>
+      <div class="game-stat-row"><span>Arma 3</span><span class="game-stat-hours">6,075 hrs</span></div>
+      <div class="game-stat-row"><span>EVE Online</span><span class="game-stat-hours">5,390 hrs</span></div>
+      <div class="game-stat-row"><span>Space Engineers</span><span class="game-stat-hours">930 hrs</span></div>
+      <div class="game-stat-row"><span>Arma Reforger</span><span class="game-stat-hours">446 hrs</span></div>
+      <div class="game-stat-total"><span>Total</span><span class="game-stat-hours">12,841 hrs</span></div>
     </div>
   </div>
   </div>
@@ -1207,7 +1539,7 @@
 <section id="journey">
   <div class="container">
   <div class="section-header reveal">
-    <span class="section-num">04</span>
+    <span class="section-num">05</span>
     <span class="section-title">Journey</span>
     <div class="section-line"></div>
   </div>
@@ -1217,7 +1549,7 @@
       <div class="timeline-dot"></div>
       <div class="timeline-date">2022 — NOW</div>
       <div class="timeline-title">Product Owner & IT Consultant — SSC-Services</div>
-      <div class="timeline-desc">Where I currently live. Cloud migrations, DevOps platforms, agile coaching, and a backlog that somehow only grows. Also where I caught the IaC bug properly.</div>
+      <div class="timeline-desc">Where I currently live. Led a DevOps transformation that significantly cut deployment time, managed cloud migration projects worth over a million euros, and implemented agile practices across 3 teams. Also where I caught the IaC bug properly.</div>
     </div>
     <div class="timeline-item reveal reveal-delay-1">
       <div class="timeline-dot"></div>
@@ -1227,21 +1559,86 @@
     </div>
     <div class="timeline-item reveal reveal-delay-2">
       <div class="timeline-dot"></div>
-      <div class="timeline-date">2018 — 2019</div>
-      <div class="timeline-title">ECM Consulting — SER Solutions & eviatec</div>
-      <div class="timeline-desc">The enterprise content management era. Implemented Doxis4, architected ELO solutions, cut invoice processing by 60%, and trained a lot of people who really didn't want to change their workflows.</div>
+      <div class="timeline-date">2019</div>
+      <div class="timeline-title">IT Consultant & Project Lead — SER Solutions</div>
+      <div class="timeline-desc">Managed Doxis4 iECM Suite implementations for 3 enterprise clients. Cut invoice processing time by 60%, led workshops with 50+ stakeholders, and trained 100+ users.</div>
     </div>
     <div class="timeline-item reveal reveal-delay-3">
       <div class="timeline-dot"></div>
-      <div class="timeline-date">2016 — 2018</div>
-      <div class="timeline-title">Software Developer — mpl Software</div>
-      <div class="timeline-desc">Where it all started properly. Custom enterprise software, third-party integrations, and my first real taste of building things that other people depend on.</div>
+      <div class="timeline-date">2018</div>
+      <div class="timeline-title">ECM Consultant & Solution Architect — eviatec</div>
+      <div class="timeline-desc">Architected ELO ECM enterprise solutions, redesigned legacy system landscapes, and handled pre-sales technical consulting. The role where I learned that selling a solution is almost as important as building it.</div>
     </div>
     <div class="timeline-item reveal reveal-delay-4">
       <div class="timeline-dot"></div>
+      <div class="timeline-date">2016 — 2018</div>
+      <div class="timeline-title">Software Developer — mpl Software</div>
+      <div class="timeline-desc">Where it all started properly. Custom enterprise software with C# and .NET, CRM development with CAS genesisWorld, third-party integrations, and my first real taste of building things that other people depend on.</div>
+    </div>
+    <div class="timeline-item reveal reveal-delay-5">
+      <div class="timeline-dot"></div>
       <div class="timeline-date">2013 — 2016</div>
       <div class="timeline-title">The Early Days</div>
-      <div class="timeline-desc">Working student and intern stints across Germany and California — Krieger Systemhaus, CEMA AG, Freightgate in Huntington Beach, Netlution. Built webshops, packaged software, migrated hypervisors, and figured out this is what I want to do.</div>
+      <div class="timeline-desc">Working student and intern stints across Germany and California — Krieger Systemhaus, CEMA AG, Freightgate in Huntington Beach, Netlution. Built webshops, packaged software, evaluated open-source service discovery tools, and figured out this is what I want to do.</div>
+    </div>
+
+  </div>
+  </div>
+</section>
+
+<!-- Certifications -->
+<section id="certs">
+  <div class="container">
+  <div class="section-header reveal">
+    <span class="section-num">06</span>
+    <span class="section-title">Certifications</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="certs-grid">
+    <div class="cert-item reveal">
+      <div class="cert-name">Professional Scrum Product Owner (PSPO)</div>
+      <div class="cert-meta">Scrum.org · <span class="cert-year">2024</span></div>
+    </div>
+    <div class="cert-item reveal reveal-delay-1">
+      <div class="cert-name">Professional Scrum Master I (PSM I)</div>
+      <div class="cert-meta">Scrum.org · <span class="cert-year">2024</span></div>
+    </div>
+    <div class="cert-item reveal reveal-delay-2">
+      <div class="cert-name">CPRE-AL Requirements Engineering</div>
+      <div class="cert-meta">iSQI Group · <span class="cert-year">2024</span></div>
+    </div>
+    <div class="cert-item reveal">
+      <div class="cert-name">ITIL 4 Foundation</div>
+      <div class="cert-meta">PeopleCert · <span class="cert-year">2023</span></div>
+    </div>
+    <div class="cert-item reveal reveal-delay-1">
+      <div class="cert-name">Doxis4 BPM</div>
+      <div class="cert-meta">SER Group · <span class="cert-year">2019</span></div>
+    </div>
+    <div class="cert-item reveal reveal-delay-2">
+      <div class="cert-name">Doxis4 Systemadministration</div>
+      <div class="cert-meta">SER Group · <span class="cert-year">2019</span></div>
+    </div>
+    <div class="cert-item reveal">
+      <div class="cert-name">Doxis4 winCube Scripting</div>
+      <div class="cert-meta">SER Group · <span class="cert-year">2019</span></div>
+    </div>
+    <div class="cert-item reveal reveal-delay-1">
+      <div class="cert-name">Doxis4 CSB Fachadministration</div>
+      <div class="cert-meta">SER Group · <span class="cert-year">2019</span></div>
+    </div>
+    <div class="cert-item reveal reveal-delay-2">
+      <div class="cert-name">Doxis4 CSB Overview</div>
+      <div class="cert-meta">SER Group · <span class="cert-year">2019</span></div>
+    </div>
+    <div class="cert-item reveal">
+      <div class="cert-name">Certified Solution Developer</div>
+      <div class="cert-meta">CAS Software AG · <span class="cert-year">2018</span></div>
+    </div>
+    <div class="cert-item reveal reveal-delay-1">
+      <div class="cert-name">Certified Solution Developer</div>
+      <div class="cert-meta">CAS Software AG · <span class="cert-year">2017</span></div>
     </div>
   </div>
   </div>
@@ -1377,6 +1774,41 @@ window.addEventListener('scroll', () => {
   document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 60);
 });
 
+// ─── Mobile nav toggle ───
+const mainNav = document.getElementById('mainNav');
+const navToggle = document.getElementById('navToggle');
+const navMenu = document.getElementById('mainNavLinks');
+
+function setNavOpen(open) {
+  if (!mainNav || !navToggle) return;
+  mainNav.classList.toggle('open', open);
+  navToggle.setAttribute('aria-expanded', String(open));
+}
+
+if (mainNav && navToggle && navMenu) {
+  navToggle.addEventListener('click', () => {
+    const isOpen = mainNav.classList.contains('open');
+    setNavOpen(!isOpen);
+  });
+
+  navMenu.querySelectorAll('.nav-link').forEach((link) => {
+    link.addEventListener('click', () => setNavOpen(false));
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && mainNav.classList.contains('open')) {
+      setNavOpen(false);
+      navToggle.focus();
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) {
+      setNavOpen(false);
+    }
+  });
+}
+
 // ─── Scroll reveal ───
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
@@ -1404,9 +1836,9 @@ const barObserver = new IntersectionObserver((entries) => {
 document.querySelectorAll('.stack-card').forEach(el => barObserver.observe(el));
 
 // ─── Counter animation ───
-const counterEl = document.querySelector('[data-count]');
-if (counterEl) {
+document.querySelectorAll('[data-count]').forEach(counterEl => {
   const target = parseInt(counterEl.dataset.count);
+  const suffix = counterEl.dataset.suffix || '';
   const counterObserver = new IntersectionObserver((entries) => {
     if (entries[0].isIntersecting) {
       let current = 0;
@@ -1417,17 +1849,17 @@ if (counterEl) {
         frame++;
         current += step;
         if (frame >= frames) {
-          counterEl.textContent = target;
+          counterEl.textContent = target + suffix;
           clearInterval(timer);
         } else {
-          counterEl.textContent = Math.floor(current);
+          counterEl.textContent = Math.floor(current) + suffix;
         }
       }, 40);
       counterObserver.unobserve(counterEl);
     }
   }, { threshold: 0.5 });
   counterObserver.observe(counterEl);
-}
+});
 
 // ─── Terminal typing ───
 const terminalLines = [
@@ -1435,27 +1867,28 @@ const terminalLines = [
   { type: 'cmd', text: 'whoami' },
   { type: 'br' },
   { type: 'output', text: 'Patrick Reich' },
-  { type: 'comment', text: ' # based in Stuttgart, Germany' },
+  { type: 'comment', text: ' # product owner + infra-heavy builder' },
   { type: 'br' }, { type: 'br' },
   { type: 'prompt', text: '$ ' },
-  { type: 'cmd', text: 'cat ~/status' },
+  { type: 'cmd', text: 'cat ~/now' },
   { type: 'br' },
-  { type: 'output', text: 'Product Owner by day' },
+  { type: 'output', text: 'Leading DevOps platform work at SSC-Services' },
   { type: 'br' },
-  { type: 'output', text: 'Agentic coder by night' },
+  { type: 'output', text: 'Shipping personal tools with agentic coding workflows' },
   { type: 'br' }, { type: 'br' },
   { type: 'prompt', text: '$ ' },
-  { type: 'cmd', text: 'ls ~/currently-obsessed-with/' },
+  { type: 'cmd', text: 'ls ~/focus/' },
   { type: 'br' },
-  { type: 'dir', text: 'claude-code/  nixos-flakes/  proxmox/  web-tools/' },
+  { type: 'dir', text: 'agent-systems/  nixos-flakes/  homelab-ops/  backend-apis/' },
   { type: 'br' },
-  { type: 'dir', text: 'hytale-mods/  backend-apis/  eve-spreadsheets/' },
+  { type: 'dir', text: 'hytale-mods/  web-dashboards/  game-server-automation/' },
   { type: 'br' }, { type: 'br' },
   { type: 'prompt', text: '$ ' },
-  { type: 'cmd', text: 'which code-assistant' },
+  { type: 'cmd', text: 'cat ~/meta' },
   { type: 'br' },
-  { type: 'output', text: '/usr/local/bin/claude-code' },
-  { type: 'comment', text: ' # the future is agentic' },
+  { type: 'output', text: 'location=Boeblingen timezone=CET' },
+  { type: 'br' },
+  { type: 'output', text: 'collab=open remote=yes onsite=possible' },
   { type: 'br' }, { type: 'br' },
   { type: 'prompt', text: '$ ' },
   { type: 'cursor' }
@@ -1518,12 +1951,12 @@ typeTerminal();
 
 // ─── Active nav link ───
 const sections = document.querySelectorAll('section[id]');
-const navLinks = document.querySelectorAll('.nav-link');
+const sectionNavLinks = document.querySelectorAll('.nav-link');
 
 const navObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      navLinks.forEach(link => {
+      sectionNavLinks.forEach(link => {
         link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
       });
     }
