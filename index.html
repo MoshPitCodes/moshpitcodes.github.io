@@ -48,6 +48,7 @@
     --accent-blue: #6bb5ff;
     --accent-purple: #a78bfa;
     --accent-amber: #fbbf24;
+    --accent-teal: #2dd4bf;
     --serif: 'Playfair Display', Georgia, serif;
     --mono: 'JetBrains Mono', monospace;
     --sans: 'Outfit', sans-serif;
@@ -467,10 +468,10 @@
 
   .terminal-block {
     background: linear-gradient(160deg, #0a0d13 0%, #0f1320 100%);
-    border: 1px solid rgba(107, 181, 255, 0.35);
+    border: 1px solid rgba(100, 255, 186, 0.35);
     border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 26px 64px rgba(0, 0, 0, 0.45), 0 0 28px rgba(107, 181, 255, 0.12);
+    box-shadow: 0 26px 64px rgba(0, 0, 0, 0.45), 0 0 28px rgba(100, 255, 186, 0.12);
     position: relative;
   }
 
@@ -481,7 +482,7 @@
     left: 0;
     right: 0;
     height: 2px;
-    background: linear-gradient(90deg, transparent, var(--accent-blue), transparent);
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
   }
 
   .terminal-bar {
@@ -587,7 +588,7 @@
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 2px;
-    background: linear-gradient(90deg, transparent, var(--card-accent, var(--accent)), transparent);
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
     opacity: 0;
     transition: opacity 0.4s;
   }
@@ -640,11 +641,11 @@
     text-transform: uppercase;
   }
 
-  .tag.green { background: rgba(100,255,186,0.08); color: var(--accent); border: 1px solid rgba(100,255,186,0.12); }
-  .tag.blue { background: rgba(107,181,255,0.08); color: var(--accent-blue); border: 1px solid rgba(107,181,255,0.12); }
-  .tag.purple { background: rgba(167,139,250,0.08); color: var(--accent-purple); border: 1px solid rgba(167,139,250,0.12); }
-  .tag.red { background: rgba(255,107,138,0.08); color: var(--accent-hot); border: 1px solid rgba(255,107,138,0.12); }
-  .tag.amber { background: rgba(251,191,36,0.08); color: var(--accent-amber); border: 1px solid rgba(251,191,36,0.12); }
+  .tag.tag--ops { background: rgba(100,255,186,0.08); color: var(--accent); border: 1px solid rgba(100,255,186,0.12); }
+  .tag.tag--build { background: rgba(107,181,255,0.08); color: var(--accent-blue); border: 1px solid rgba(107,181,255,0.12); }
+  .tag.tag--product { background: rgba(167,139,250,0.08); color: var(--accent-purple); border: 1px solid rgba(167,139,250,0.12); }
+  .tag.tag--community { background: rgba(255,107,138,0.08); color: var(--accent-hot); border: 1px solid rgba(255,107,138,0.12); }
+  .tag.tag--automation { background: rgba(251,191,36,0.08); color: var(--accent-amber); border: 1px solid rgba(251,191,36,0.12); }
 
   .project-card h3 {
     font-family: var(--serif);
@@ -672,7 +673,7 @@
     border-top: 1px solid var(--border);
     font-family: var(--mono);
     font-size: 11px;
-    color: var(--text-dim);
+    color: var(--text-muted);
     margin-top: auto;
   }
 
@@ -685,8 +686,55 @@
   }
 
   .card-meta span strong {
-    color: var(--text-muted);
+    color: var(--text);
     font-weight: 500;
+  }
+
+  .tag-legend {
+    margin-top: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .tag-legend-title {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-right: 4px;
+  }
+
+  .tag-legend .tag {
+    cursor: default;
+  }
+
+  .meta-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    border: 1px solid rgba(122, 127, 150, 0.28);
+    background: rgba(9, 12, 18, 0.7);
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  .meta-chip strong { font-weight: 600; }
+  .meta-chip--core strong { color: var(--accent-purple); }
+  .meta-chip--automation strong { color: var(--accent-amber); }
+  .meta-chip--stack strong { color: var(--accent-blue); }
+
+  .legend-section {
+    position: relative;
+    z-index: 2;
+    padding: 0 0 72px;
   }
 
   .card-arrow {
@@ -718,8 +766,9 @@
   }
 
   .stack-card:hover {
-    border-color: var(--border-light);
-    transform: translateY(-3px);
+    border-color: rgba(100,255,186,0.15);
+    transform: translateY(-6px);
+    box-shadow: 0 24px 80px rgba(0,0,0,0.4), 0 0 60px var(--accent-glow);
   }
 
   .stack-card h4 {
@@ -765,23 +814,23 @@
   .skill-bar-fill {
     height: 100%;
     border-radius: 999px;
-    background: linear-gradient(90deg, var(--accent) 0%, #7affc7 100%);
-    box-shadow: 0 0 12px rgba(100, 255, 186, 0.35);
+    background: var(--text-muted);
+    box-shadow: 0 0 8px rgba(122, 127, 150, 0.25);
     transition: width 1s var(--ease-out);
     width: 0;
   }
 
   .skill-bar-fill.blue {
-    background: linear-gradient(90deg, var(--accent-blue) 0%, #8dc6ff 100%);
-    box-shadow: 0 0 12px rgba(107, 181, 255, 0.33);
+    background: var(--text-muted);
+    box-shadow: 0 0 8px rgba(122, 127, 150, 0.25);
   }
   .skill-bar-fill.purple {
-    background: linear-gradient(90deg, var(--accent-purple) 0%, #c0adff 100%);
-    box-shadow: 0 0 12px rgba(167, 139, 250, 0.32);
+    background: var(--text-muted);
+    box-shadow: 0 0 8px rgba(122, 127, 150, 0.25);
   }
   .skill-bar-fill.amber {
-    background: linear-gradient(90deg, var(--accent-amber) 0%, #fddf8c 100%);
-    box-shadow: 0 0 12px rgba(251, 191, 36, 0.28);
+    background: var(--text-muted);
+    box-shadow: 0 0 8px rgba(122, 127, 150, 0.25);
   }
 
   /* ─── Agentic stats grid ─── */
@@ -929,8 +978,9 @@
   }
 
   .cert-item:hover {
-    border-color: var(--border-light);
-    transform: translateY(-2px);
+    border-color: rgba(100,255,186,0.15);
+    transform: translateY(-6px);
+    box-shadow: 0 24px 80px rgba(0,0,0,0.4), 0 0 60px var(--accent-glow);
   }
 
   .cert-name {
@@ -1206,20 +1256,17 @@
         <strong>product ownership</strong> and <strong>getting my hands dirty
         with infrastructure</strong>. Currently I'm at SSC-Services where I look
         after DevOps platforms, herd cloud migrations, and try to convince
-        development teams that agile isn't just a buzzword.
+        development teams that Agile isn't just a buzzword.
       </p>
       <p>
-        Lately I've been deep into <strong>agentic coding</strong> — using Claude Code
-        and OpenCode to build things faster than I ever could solo. I write a lot of
-        <strong>backend services and web tools</strong> for myself, mostly to solve
-        problems I got annoyed by one too many times. If a task takes me more than
-        twice, it gets automated or turned into a small app.
+        Lately I've been deep into <strong>agentic coding</strong> — Claude Code
+        and OpenCode as daily drivers. It's fundamentally changed what one person
+        can ship. More on that in the projects below.
       </p>
       <p>
-        The stuff I'm most proud of usually happens after hours: a
-        <strong>Proxmox homelab</strong> that keeps growing, game servers for friends,
-        Hytale mods nobody asked for, custom web dashboards for things that didn't
-        need dashboards, and an EVE Online spreadsheet habit I'm not ready to talk about.
+        The stuff I'm most proud of usually happens after hours: game servers
+        for friends, custom web dashboards for things that didn't need dashboards,
+        and an EVE Online spreadsheet habit I'm not ready to talk about.
       </p>
       <p>
         When I'm not staring at a terminal, I'm usually <strong>playing guitar</strong>.
@@ -1257,9 +1304,9 @@
     <div class="project-card featured reveal" style="--card-accent: var(--accent-amber);">
       <div>
         <div class="card-tags">
-          <span class="tag amber">AI</span>
-          <span class="tag amber">Agentic</span>
-          <span class="tag amber">Workflow</span>
+          <span class="tag tag--product">AI</span>
+          <span class="tag tag--build">Tooling</span>
+          <span class="tag tag--automation">Agent Pipelines</span>
         </div>
         <h3>Agentic Coding Workflow</h3>
         <p>Claude Code and OpenCode as daily drivers. I pair-program with AI agents
@@ -1288,18 +1335,18 @@
             <div class="agentic-stat-label">Plugins</div>
           </div>
           <div class="agentic-stat">
-            <div class="agentic-stat-value">1</div>
+            <div class="agentic-stat-value">12</div>
             <div class="agentic-stat-label">Custom Tool</div>
           </div>
           <div class="agentic-stat">
-            <div class="agentic-stat-value">1</div>
+            <div class="agentic-stat-value">7</div>
             <div class="agentic-stat-label">MCP Server</div>
           </div>
         </div>
       </div>
       <div class="card-meta">
-        <span><strong>Core:</strong> AI Pair Programming</span>
-        <span><strong>Automation:</strong> Agent Pipelines</span>
+        <span><strong>Domain:</strong> AI Development</span>
+        <span><strong>Build:</strong> Agentic Tooling</span>
         <span><strong>Stack:</strong> Claude + OpenCode</span>
       </div>
       <span class="card-arrow">↗</span>
@@ -1308,33 +1355,34 @@
     <div class="projects-featured-right">
       <div class="project-card reveal reveal-delay-1" style="--card-accent: var(--accent);">
         <div class="card-tags">
-          <span class="tag green">Homelab</span>
-          <span class="tag green">NixOS</span>
-          <span class="tag green">Infra</span>
+          <span class="tag tag--product">Infrastructure</span>
+          <span class="tag tag--build">NixOS Cluster</span>
+          <span class="tag tag--automation">IaC</span>
         </div>
         <h3>The Homelab That Keeps Growing</h3>
         <p>What started as "I'll just try Proxmox" turned into a full virtualization cluster
            with NixOS nodes managed through flakes, VLANs for network segmentation, NVMe storage,
            and Ansible playbooks for everything I got tired of doing twice.</p>
         <div class="card-meta">
-          <span><strong>Core:</strong> Proxmox Cluster</span>
-          <span><strong>Automation:</strong> Ansible + Flakes</span>
-          <span><strong>Stack:</strong> VLAN + NVMe</span>
+          <span><strong>Domain:</strong> Infrastructure</span>
+          <span><strong>Build:</strong> Homelab Cluster</span>
+          <span><strong>Stack:</strong> Proxmox + NixOS</span>
         </div>
         <span class="card-arrow">↗</span>
       </div>
 
       <div class="project-card reveal reveal-delay-2" style="--card-accent: var(--accent-hot);">
         <div class="card-tags">
-          <span class="tag red">Gaming</span>
-          <span class="tag red">Modding</span>
+          <span class="tag tag--product">Game Systems</span>
+          <span class="tag tag--build">Modding</span>
+          <span class="tag tag--automation">Build Pipelines</span>
         </div>
         <h3>Living Lands — Hytale</h3>
         <p>A mod series for Hytale that adds dynamic ecosystems. Built a Discord
            community around it and learned more about game design than I expected to.</p>
         <div class="card-meta">
-          <span><strong>Core:</strong> Hytale Modding</span>
-          <span><strong>Automation:</strong> Build Pipeline</span>
+          <span><strong>Domain:</strong> Game Systems</span>
+          <span><strong>Build:</strong> Hytale Mods</span>
           <span><strong>Stack:</strong> Java + Discord</span>
         </div>
         <span class="card-arrow">↗</span>
@@ -1345,50 +1393,53 @@
   <div class="projects-grid">
     <div class="project-card reveal" style="--card-accent: var(--accent-hot);">
       <div class="card-tags">
-        <span class="tag red">Servers</span>
-        <span class="tag red">Gaming</span>
+        <span class="tag tag--product">Gaming</span>
+        <span class="tag tag--build">Server Fleet</span>
+        <span class="tag tag--automation">Automation</span>
       </div>
       <h3>Game Server Fleet</h3>
       <p>EVE Online tools, Arma Reforger servers, PowerShell automation — because
          why play games normally when you can also ops them.</p>
       <div class="card-meta">
-        <span><strong>Core:</strong> Dedicated Servers</span>
-        <span><strong>Automation:</strong> PowerShell</span>
-        <span><strong>Stack:</strong> EVE + Arma</span>
+        <span><strong>Domain:</strong> Gaming Infrastructure</span>
+        <span><strong>Build:</strong> Server Fleet</span>
+        <span><strong>Stack:</strong> PowerShell + Dedicated Servers</span>
       </div>
       <span class="card-arrow">↗</span>
     </div>
 
     <div class="project-card reveal reveal-delay-1" style="--card-accent: var(--accent);">
       <div class="card-tags">
-        <span class="tag green">Tools</span>
-        <span class="tag green">Backend</span>
+        <span class="tag tag--product">Developer Tools</span>
+        <span class="tag tag--build">CLI & Web Apps</span>
+        <span class="tag tag--automation">Scaffolding</span>
       </div>
       <h3>Personal Tool Factory</h3>
       <p>If something annoys me twice, it becomes a CLI tool or a small web app.
          Asset trackers, config generators, API wrappers — I build utilities for
          myself and occasionally they're useful to others too.</p>
       <div class="card-meta">
-        <span><strong>Core:</strong> Internal Tooling</span>
-        <span><strong>Automation:</strong> CLI Scaffolding</span>
-        <span><strong>Stack:</strong> Python + REST</span>
+        <span><strong>Domain:</strong> Developer Tools</span>
+        <span><strong>Build:</strong> CLI + Web Utilities</span>
+        <span><strong>Stack:</strong> Python + Go + REST</span>
       </div>
       <span class="card-arrow">↗</span>
     </div>
 
     <div class="project-card reveal reveal-delay-2" style="--card-accent: var(--accent-purple);">
       <div class="card-tags">
-        <span class="tag purple">Web</span>
-        <span class="tag purple">Frontend</span>
+        <span class="tag tag--product">Monitoring</span>
+        <span class="tag tag--build">Dashboards</span>
+        <span class="tag tag--automation">API Integration</span>
       </div>
       <h3>Web Dev & Dashboards</h3>
       <p>Dashboards, admin panels, landing pages — I enjoy the full stack loop from
          backend API to something you can click on. Mostly built for my own projects
          and homelab monitoring.</p>
       <div class="card-meta">
-        <span><strong>Core:</strong> Monitoring UIs</span>
-        <span><strong>Automation:</strong> API Integration</span>
-        <span><strong>Stack:</strong> JS + Frontend</span>
+        <span><strong>Domain:</strong> Monitoring</span>
+        <span><strong>Build:</strong> Dashboards</span>
+        <span><strong>Stack:</strong> JS + React + Frontend</span>
       </div>
       <span class="card-arrow">↗</span>
     </div>
@@ -1409,73 +1460,79 @@
   <div class="projects-grid">
     <div class="project-card reveal" style="--card-accent: var(--accent);">
       <div class="card-tags">
-        <span class="tag green">DevOps</span>
-        <span class="tag green">Cloud</span>
-        <span class="tag green">Product</span>
+        <span class="tag tag--product">Defect Management</span>
+        <span class="tag tag--build">Product Owner</span>
+        <span class="tag tag--automation">Platform Engineering</span>
       </div>
       <h3>IT Consultant & Product Owner — SSC-Services</h3>
-      <p>The current gig. I herd 3 teams toward something resembling agile, babysit a
-         400+ item backlog that only grows, and somehow got put in charge of cloud
-         migrations worth more than my apartment. Deployments got faster, processes
-         got less painful, and I still don't know what half the meetings are for.</p>
+      <p>My current role is equal parts delivery, coordination, and keeping momentum high
+         across three teams. I manage a 400+ item backlog, lead cloud migration efforts,
+         and help turn agile principles into work that actually ships. The result:
+         faster deployments, smoother processes, and fewer "why is this blocked?" moments.</p>
       <div class="card-meta">
-        <span><strong>Core:</strong> Platform Ownership</span>
-        <span><strong>Automation:</strong> DevOps Pipelines</span>
-        <span><strong>Stack:</strong> Azure + IaC</span>
+        <span><strong>Platform:</strong> Codebeamer</span>
+        <span><strong>Core:</strong> Platform Engineering</span>
+        <span><strong>Stack:</strong> Java + IaC</span>
+        <span><strong>Infrastructure:</strong> MS Azure</span>
       </div>
       <span class="card-arrow">↗</span>
     </div>
 
     <div class="project-card reveal reveal-delay-1" style="--card-accent: var(--accent-blue);">
       <div class="card-tags">
-        <span class="tag blue">ECM</span>
-        <span class="tag blue">Automation</span>
+        <span class="tag tag--product">ECM</span>
+        <span class="tag tag--build">Project Lead</span>
+        <span class="tag tag--automation">Invoice Processing</span>
       </div>
       <h3>IT Consultant & Project Lead — SER Solutions</h3>
-      <p>Rolled out Doxis4 for 3 enterprise clients who were perfectly happy with their
-         old way of doing things. Cut invoice processing time by 60%, ran workshops
-         for 50+ stakeholders, and trained 100+ users who mostly just wanted to be
-         left alone.</p>
+      <p>Led Doxis4 rollouts for three enterprise clients and helped teams move from
+         legacy routines to modern document workflows without breaking daily operations.
+         We cut invoice processing time by 60%, ran workshops for 50+ stakeholders,
+         and trained 100+ users to make the new setup stick.</p>
       <div class="card-meta">
+        <span><strong>Platform:</strong> Doxis4</span>
         <span><strong>Core:</strong> Document Management</span>
-        <span><strong>Automation:</strong> Invoice Processing</span>
-        <span><strong>Stack:</strong> Doxis4 + SQL Server</span>
+        <span><strong>Stack:</strong> SQL Server + BPM</span>
+        <span><strong>Infrastructure:</strong> Hybrid Cloud</span>
       </div>
       <span class="card-arrow">↗</span>
     </div>
 
     <div class="project-card reveal reveal-delay-2" style="--card-accent: var(--accent-blue);">
       <div class="card-tags">
-        <span class="tag blue">ECM</span>
-        <span class="tag blue">Architecture</span>
+        <span class="tag tag--product">ECM</span>
+        <span class="tag tag--build">Solution Architect</span>
+        <span class="tag tag--automation">ELO Workflows</span>
       </div>
       <h3>ECM Consultant & Solution Architect — eviatec</h3>
-      <p>Drew boxes on whiteboards and called it "solution architecture." Redesigned
-         legacy systems that nobody wanted to touch, did pre-sales consulting where
-         I learned that half the job is convincing people they have a problem, and
-         managed QA because someone had to.</p>
+      <p>Worked across solution architecture, legacy modernization, and pre-sales
+         consulting to turn complex requirements into plans people could actually follow.
+         I also led QA coordination to keep releases stable and surprises to a minimum.</p>
       <div class="card-meta">
+        <span><strong>Platform:</strong> ELO ECM Suite</span>
         <span><strong>Core:</strong> Solution Architecture</span>
-        <span><strong>Automation:</strong> ELO Workflows</span>
-        <span><strong>Stack:</strong> ELO + Windows Server</span>
+        <span><strong>Stack:</strong> ELO Workflows + Windows Server</span>
+        <span><strong>Infrastructure:</strong> On-Premise Distributed</span>
       </div>
       <span class="card-arrow">↗</span>
     </div>
 
     <div class="project-card reveal reveal-delay-3" style="--card-accent: var(--accent-blue);">
       <div class="card-tags">
-        <span class="tag blue">Dev</span>
-        <span class="tag blue">Backend</span>
+        <span class="tag tag--product">CRM/CRx</span>
+        <span class="tag tag--build">Software Developer</span>
+        <span class="tag tag--automation">Integration</span>
       </div>
       <h3>Software Developer — mpl Software</h3>
-      <p>The first real job. Wrote enterprise software, plugged third-party systems
-         together until they stopped complaining, and got my hands dirty with CAS
-         genesisWorld, C#, Node.js, and AngularJS. Mostly learned that "it works on
-         my machine" is not a deployment strategy.</p>
+      <p>The first real job, and the one that taught me most of the fundamentals fast.
+         I built enterprise features, integrated third-party systems, and worked hands-on
+         with CAS genesisWorld, C#, Node.js, and AngularJS. Also learned early that
+         "it works on my machine" is not a production plan.</p>
       <div class="card-meta">
+        <span><strong>Platform:</strong> CAS genesisWorld</span>
         <span><strong>Core:</strong> Enterprise Software</span>
-        <span><strong>Automation:</strong> System Integration</span>
         <span><strong>Stack:</strong> C# + Node.js</span>
+        <span><strong>Infrastructure:</strong> On-Premise Distributed</span>
       </div>
       <span class="card-arrow">↗</span>
     </div>
@@ -1503,6 +1560,14 @@
       <div class="skill-row"><span>ComfyUI</span><div class="skill-bar-track"><div class="skill-bar-fill amber" data-width="56"></div></div></div>
       <div class="skill-row"><span>n8n</span><div class="skill-bar-track"><div class="skill-bar-fill amber" data-width="66"></div></div></div>
       <div class="skill-row"><span>MCP Servers</span><div class="skill-bar-track"><div class="skill-bar-fill amber" data-width="78"></div></div></div>
+    </div>
+
+    <div class="stack-card reveal">
+      <h4>Cloud</h4>
+      <div class="skill-row"><span>Azure</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="80"></div></div></div>
+      <div class="skill-row"><span>AWS</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="62"></div></div></div>
+      <div class="skill-row"><span>Vercel</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="56"></div></div></div>
+      <div class="skill-row"><span>Heroku</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="66"></div></div></div>
     </div>
 
     <div class="stack-card reveal reveal-delay-1">
@@ -1536,9 +1601,11 @@
     <div class="stack-card reveal reveal-delay-4">
       <h4>Platforms</h4>
       <div class="skill-row"><span>Jira</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="92"></div></div></div>
+      <div class="skill-row"><span>Linear</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="78"></div></div></div>
+      <div class="skill-row"><span>GitHub</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="90"></div></div></div>
       <div class="skill-row"><span>Confluence</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="88"></div></div></div>
       <div class="skill-row"><span>Microsoft 365</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="82"></div></div></div>
-      <div class="skill-row"><span>Windows</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="90"></div></div></div>
+      <div class="skill-row"><span>Windows</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="36"></div></div></div>
       <div class="skill-row"><span>Linux</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="86"></div></div></div>
     </div>
 
@@ -1546,17 +1613,9 @@
       <h4>Methods</h4>
       <div class="skill-row"><span>Waterfall</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="78"></div></div></div>
       <div class="skill-row"><span>Agile</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="90"></div></div></div>
-      <div class="skill-row"><span>SAFe 6.0</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="86"></div></div></div>
+      <div class="skill-row"><span>SAFe 6.0</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="69"></div></div></div>
       <div class="skill-row"><span>SCRUM</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="92"></div></div></div>
       <div class="skill-row"><span>Requirements Engineering</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="80"></div></div></div>
-    </div>
-
-    <div class="stack-card reveal">
-      <h4>Cloud</h4>
-      <div class="skill-row"><span>Azure</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="80"></div></div></div>
-      <div class="skill-row"><span>AWS</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="62"></div></div></div>
-      <div class="skill-row"><span>Vercel</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="70"></div></div></div>
-      <div class="skill-row"><span>Heroku</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-width="66"></div></div></div>
     </div>
 
     <div class="stack-card reveal reveal-delay-1">
@@ -1585,7 +1644,7 @@
       <div class="timeline-dot"></div>
       <div class="timeline-date">2022 — NOW</div>
       <div class="timeline-title">Product Owner & IT Consultant — SSC-Services</div>
-      <div class="timeline-desc">Where I currently live. Led a DevOps transformation that significantly cut deployment time, managed cloud migration projects worth over a million euros, and implemented agile practices across 3 teams. Also where I caught the IaC bug properly.</div>
+      <div class="timeline-desc">The role that tied everything together — product ownership, infrastructure, and leading teams. Also where I caught the IaC bug properly.</div>
     </div>
     <div class="timeline-item reveal reveal-delay-1">
       <div class="timeline-dot"></div>
@@ -1597,19 +1656,19 @@
       <div class="timeline-dot"></div>
       <div class="timeline-date">2019</div>
       <div class="timeline-title">IT Consultant & Project Lead — SER Solutions</div>
-      <div class="timeline-desc">Managed Doxis4 iECM Suite implementations for 3 enterprise clients. Cut invoice processing time by 60%, led workshops with 50+ stakeholders, and trained 100+ users.</div>
+      <div class="timeline-desc">Enterprise document management at scale. First time leading full implementation lifecycles with multiple clients simultaneously.</div>
     </div>
     <div class="timeline-item reveal reveal-delay-3">
       <div class="timeline-dot"></div>
       <div class="timeline-date">2018</div>
       <div class="timeline-title">ECM Consultant & Solution Architect — eviatec</div>
-      <div class="timeline-desc">Architected ELO ECM enterprise solutions, redesigned legacy system landscapes, and handled pre-sales technical consulting. The role where I learned that selling a solution is almost as important as building it.</div>
+      <div class="timeline-desc">Where I shifted from pure engineering into architecture and client-facing work. Learned that selling a solution is almost as important as building it.</div>
     </div>
     <div class="timeline-item reveal reveal-delay-4">
       <div class="timeline-dot"></div>
       <div class="timeline-date">2016 — 2018</div>
       <div class="timeline-title">Software Developer — mpl Software</div>
-      <div class="timeline-desc">Where it all started properly. Custom enterprise software with C# and .NET, CRM development with CAS genesisWorld, third-party integrations, and my first real taste of building things that other people depend on.</div>
+      <div class="timeline-desc">The first real job. Went from writing code for myself to writing code other people depend on. Everything since traces back here.</div>
     </div>
     <div class="timeline-item reveal reveal-delay-5">
       <div class="timeline-dot"></div>
@@ -1692,6 +1751,20 @@
       <a href="https://github.com/moshpitcodes" class="btn btn-ghost">GitHub</a>
     </div>
   </div>
+  </div>
+</section>
+
+<!-- Legend -->
+<section class="legend-section">
+  <div class="container">
+    <div class="tag-legend reveal">
+      <span class="tag-legend-title">Color Legend</span>
+      <span class="tag tag--ops">Infrastructure</span>
+      <span class="tag tag--build">Tech Stack</span>
+      <span class="tag tag--product">Product</span>
+      <span class="tag tag--automation">Automation</span>
+      <span class="tag tag--community">Community</span>
+    </div>
   </div>
 </section>
 
